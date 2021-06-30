@@ -12,6 +12,9 @@ import MessageAcionButtonGroup from './MessageAcionButtonGroup';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 
+import ViewMessage from './ViewMessage'
+
+
 
 const useStyles = makeStyles({
     table: {
@@ -69,10 +72,10 @@ export default function SimpleTable() {
                             <TableCell align="left">{row.course}</TableCell>
                             <TableCell align="left">{(() => {
                                 if (row.isRead) {
-                                    return <CheckBoxIcon/>
+                                    return <CheckBoxIcon />
                                 }
                                 else {
-                                    return <CheckBoxOutlineBlankIcon/>
+                                    return <CheckBoxOutlineBlankIcon />
                                 }
                             })()
                             }</TableCell>
@@ -81,5 +84,6 @@ export default function SimpleTable() {
                 </TableBody>
             </Table>
         </TableContainer>
+
     );
 }
