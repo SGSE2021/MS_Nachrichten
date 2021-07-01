@@ -10,6 +10,10 @@ jobs:
     
     - uses: actions/checkout@v2
     
+    - uses: KengoTODA/actions-setup-docker-compose@main
+      with:
+        version: '1.26.2'
+    
     - name: Login to Azure Container Registry
       uses: Azure/docker-login@v1
       with:
