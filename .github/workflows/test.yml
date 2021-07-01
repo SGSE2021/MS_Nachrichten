@@ -8,16 +8,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     
-    - name: Azure Login
-      uses: azure/login@v1
+    - uses: actions/checkout@v2
+    
+    - name: Login to Azure Container Registry
+      uses: Azure/docker-login@v1
       with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        login-server: ${{ env.CONTAINER_REGISTRY }}
+        username: ${{ secrets.ACR_USERNAME }}
+        password: ${{ secrets.ACR_PASSWORD }}
     
     - name: Azure CLI script
       uses: azure/CLI@v1
       with:
         azcliversion: 2.0.72
         inlineScript: |
-          az acr login --name sgse2021containerregistry.azurecr.io
           docker-compose up
           docker-compose push
