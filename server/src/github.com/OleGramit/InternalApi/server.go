@@ -18,11 +18,13 @@ func main() {
 
 	r.GET("/users", userContr.GetUsers)
 
+	r.GET("/users/:id", userContr.GetUser)
+
 	r.GET("/messages", messageContr.GetMessages)
 
 	r.POST("/message/:id", messageContr.AddMessage)
 
 	r.DELETE("/message/:id", messageContr.RemoveMessage)
 
-	http.ListenAndServe("localhost:3001", r)
+	http.ListenAndServe("localhost:3333", r)
 }

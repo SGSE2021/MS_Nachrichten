@@ -21,11 +21,11 @@ type (
 
 type (
 	Message struct {
-		MessageID   string   `json:"messageId"`
-		SenderID    string   `json:"senderId"`
-		RecipientID []string `json:"recipientId"`
-		MessageBody string   `json:"body"`
-		IsRead      int      `json:"isRead"`
+		MessageID      string   `json:"messageId"`
+		SenderName     string   `json:"senderName"`
+		RecipientNames []string `json:"recipientNames"`
+		MessageBody    string   `json:"body"`
+		IsRead         int      `json:"isRead"`
 	}
 )
 

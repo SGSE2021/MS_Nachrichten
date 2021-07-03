@@ -16,15 +16,18 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function MessageAcionButtonGroup() {
+export default function MessageAcionButtonGroup({message}) {
     const classes = useStyles();
 
     return (
         <div className={classes.root}>
             <ButtonGroup orientation="vertical" aria-label="vertical contained primary button group" variant="text">
-                <ViewMessage/>
-                <AnswerMessage/>
-                <Button>Löschen</Button>
+                <ViewMessage message={message}/>
+                <AnswerMessage message={message}/>
+                <Button onClick={
+                    // TODO DELETE REST
+                    console.log("DELETE MESSAGE")
+                }>Löschen</Button>
             </ButtonGroup>
         </div>
     );

@@ -12,6 +12,7 @@ import (
 
 var MessageStubLen int = 10
 var MessagesStub []models.Message = CreateMessagesStub(MessageStubLen)
+var UserStub []models.User = createUsers()
 
 type (
 	UserController struct{}
@@ -56,22 +57,21 @@ func getCourses() []string {
 func createMessage(messageId int) models.Message {
 	tempRecipientIds := make([]string, 0)
 	for i := 0; i < rand.Intn(10); i++ {
-		tempRecipientIds = append(tempRecipientIds, fmt.Sprintf("ID_%d", i))
+		tempRecipientIds = append(tempRecipientIds, fmt.Sprintf("Recipient Name %d", i))
 	}
 
 	tempMessage := "Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper	eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim neque volutpatac tincidunt. Ornare suspendisse sed nisi lacus sed viverra tellus."
 
 	return models.Message{
-		MessageID:   fmt.Sprintf("ID_%d", messageId),
-		SenderID:    fmt.Sprintf("ID_%d", rand.Intn(10)),
-		RecipientID: tempRecipientIds,
-		MessageBody: tempMessage,
-		IsRead:      rand.Intn(1),
+		MessageID:      fmt.Sprintf("ID_%d", messageId),
+		SenderName:     fmt.Sprintf("Sender Name %d", rand.Intn(10)),
+		RecipientNames: tempRecipientIds,
+		MessageBody:    tempMessage,
+		IsRead:         rand.Intn(1),
 	}
 }
 
-// List of all Users Stub
-func getAllUsers() models.Users {
+func createUsers() []models.User {
 	tempUsers := make([]models.User, 0)
 
 	for i := 0; i < 10; i++ {
@@ -83,9 +83,23 @@ func getAllUsers() models.Users {
 		})
 
 	}
+	return tempUsers
+}
+
+// List of all Users Stub
+func getAllUsers() models.Users {
 	return models.Users{
-		Users: tempUsers,
+		Users: UserStub,
 	}
+}
+
+func getUserById(userId string) models.User {
+	for i := 0; i <= len(UserStub); i++ {
+		if UserStub[i].UserID == userId {
+			return UserStub[i]
+		}
+	}
+	return UserStub[0]
 }
 
 // List of all messages stub
@@ -129,7 +143,26 @@ func (uc UserController) GetUsers(w http.ResponseWriter, r *http.Request, p http
 	uj, _ := json.Marshal(users)
 
 	// Write content-type, statuscode, payload
-	w.Header().Set("Content-Type", "application/json")
+	header := w.Header()
+	header.Set("Content-Type", "application/json")
+	header.Set("Access-Control-Allow-Methods", header.Get("Allow"))
+	header.Set("Access-Control-Allow-Origin", "*")
+	w.WriteHeader(200)
+	fmt.Fprintf(w, "%s", uj)
+}
+
+func (uc UserController) GetUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	// Stub all users
+	user := getUserById(p.ByName("userID"))
+
+	// Marshal provided interface into JSON structure
+	uj, _ := json.Marshal(user)
+
+	// Write content-type, statuscode, payload
+	header := w.Header()
+	header.Set("Content-Type", "application/json")
+	header.Set("Access-Control-Allow-Methods", header.Get("Allow"))
+	header.Set("Access-Control-Allow-Origin", "*")
 	w.WriteHeader(200)
 	fmt.Fprintf(w, "%s", uj)
 }
@@ -141,7 +174,10 @@ func (mc MessageController) GetMessages(w http.ResponseWriter, r *http.Request, 
 
 	uj, _ := json.Marshal(messages)
 
-	w.Header().Set("Content-Type", "application/json")
+	header := w.Header()
+	header.Set("Content-Type", "application/json")
+	header.Set("Access-Control-Allow-Methods", header.Get("Allow"))
+	header.Set("Access-Control-Allow-Origin", "*")
 	w.WriteHeader(200)
 	fmt.Fprintf(w, "%s", uj)
 }
@@ -151,17 +187,20 @@ func (mc MessageController) AddMessage(w http.ResponseWriter, r *http.Request, p
 	tempRecipientIds := make([]string, 0)
 	tempRecipientIds = append(tempRecipientIds, fmt.Sprintf("ID_%d", len(MessagesStub)+1))
 	MessagesStub = append(MessagesStub, models.Message{
-		MessageID:   fmt.Sprintf("ID_%d", len(MessagesStub)+1),
-		SenderID:    fmt.Sprintf("ID_%d", len(MessagesStub)+1),
-		RecipientID: tempRecipientIds,
-		MessageBody: "ADDED TEST",
-		IsRead:      0,
+		MessageID:      fmt.Sprintf("ID_%d", len(MessagesStub)+1),
+		SenderName:     fmt.Sprintf("ID_%d", len(MessagesStub)+1),
+		RecipientNames: tempRecipientIds,
+		MessageBody:    "ADDED TEST",
+		IsRead:         0,
 	})
 
 	uj, _ := json.Marshal(MessagesStub)
 
 	fmt.Printf("Messages Remaining: %d", len(MessagesStub))
-	w.Header().Set("Content-Type", "application/json")
+	header := w.Header()
+	header.Set("Content-Type", "application/json")
+	header.Set("Access-Control-Allow-Methods", header.Get("Allow"))
+	header.Set("Access-Control-Allow-Origin", "*")
 	w.WriteHeader(201)
 	fmt.Fprintf(w, "%s", uj)
 }
@@ -172,6 +211,10 @@ func (mc MessageController) RemoveMessage(w http.ResponseWriter, r *http.Request
 	// TODO DO WHEN DATABASE
 	result := removeMessageById(p.ByName("messageId"))
 
+	header := w.Header()
+	header.Set("Content-Type", "application/json")
+	header.Set("Access-Control-Allow-Methods", header.Get("Allow"))
+	header.Set("Access-Control-Allow-Origin", "*")
 	if result {
 		fmt.Printf("Messages Remaining: %d", len(MessagesStub))
 		w.WriteHeader(200)

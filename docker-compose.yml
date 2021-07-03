@@ -17,5 +17,6 @@ services:
     image: "sgse2021/ms_nachrichten"
     ports:
       - "3000:3000"
+      - "3001:3001"
     # links:
     #   - "backend:be"

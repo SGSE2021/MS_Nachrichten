@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AnswerMessage(senderIds, messageId) {
+export default function AnswerMessage({message}) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -35,14 +35,14 @@ export default function AnswerMessage(senderIds, messageId) {
     setOpen(false);
   };
 
-  const getMessage = (messageId) => {
+  const getMessage = () => {
     //TODO maybe in utils
-    return "THIS IS A TEST MESSAGE!!!"
+    return message.body
   }
 
-  const getSender = (senderIds) => {
+  const getSender = () => {
     //TODO maybe in utils
-    return "Test Horst"
+    return message.senderName
   }
 
   return (
@@ -67,8 +67,8 @@ export default function AnswerMessage(senderIds, messageId) {
           <div className={classes.paper}>
             <h2 id="answer-message-modal-title">Nachricht</h2>
             <AnswerMessageForm id="answer-message-modal-description"
-              sender={getSender(senderIds)}
-              message={getMessage(messageId)}
+              sender={getSender()}
+              message={getMessage()}
               onClose={handleClose} />
           </div>
         </Fade>

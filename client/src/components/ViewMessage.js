@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ViewMessage(senderIds, messageId) {
+export default function ViewMessage({message}) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -35,14 +35,14 @@ export default function ViewMessage(senderIds, messageId) {
     setOpen(false);
   };
 
-  const getMessage = (messageId) => {
+  const getMessage = () => {
     //TODO maybe in utils
-    return "THIS IS A TEST MESSAGE!!!"
+    return message.body
   }
 
-  const getSender = (senderIds) => {
+  const getSender = () => {
     //TODO maybe in utils
-    return "Test Horst"
+    return message.senderName
   }
 
   return (
@@ -67,8 +67,8 @@ export default function ViewMessage(senderIds, messageId) {
           <div className={classes.paper}>
             <h2 id="view-message-modal-title">Nachricht</h2>
             <ViewMessageForm id="view-message-modal-description"
-              sender={getSender(senderIds)}
-              message={getMessage(messageId)}
+              sender={getSender()}
+              message={getMessage()}
               onClose={handleClose} />
           </div>
         </Fade>

@@ -1,6 +1,6 @@
 /* eslint-disable no-multi-str */
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useEffect, useState } from 'react';
+import { makeStyles, responsiveFontSizes } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -12,6 +12,7 @@ import MessageAcionButtonGroup from './MessageAcionButtonGroup';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 
+import axios from 'axios';
 import ViewMessage from './ViewMessage'
 
 
@@ -22,33 +23,25 @@ const useStyles = makeStyles({
     },
 });
 
-// TODO: GET DATA
-function getMessages(message, sender, course, isRead) {
-    return { message, sender, course, isRead };
-}
-
-// TODO: REMOVE
-const tempTestMessage = [
-    getMessages('Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper\
-        eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim neque volutpat\
-        ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra tellus.', 'Test Peron', 'Test Kurs', true),
-    getMessages('Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper eget nulla\
-        facilisi etiam dignissim diam. Pulvinar elementum integer enim neque volutpat ac\
-        tincidunt. Ornare suspendisse sed nisi lacus sed viverra tellus. Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper eget nulla\
-        facilisi etiam dignissim diam. Pulvinar elementum integer enim neque volutpat ac\
-        tincidunt. Ornare suspendisse sed nisi lacus sed viverra tellus.', 'Test Peron', 'Test Kurs', false),
-    getMessages('Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper eget nulla\
-        facilisi etiam dignissim diam. Pulvinar elementum integer enim neque volutpat ac\
-        tincidunt. Ornare suspendisse sed nisi lacus sed viverra tellus.', 'Test Peron', 'Test Kurs', true),
-    getMessages('Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper eget nulla\
-        facilisi etiam dignissim diam. Pulvinar elementum integer enim neque volutpat ac\
-        tincidunt. Ornare suspendisse sed nisi lacus sed viverra tellus.', 'Test Peron', 'Test Kurs', false),
-    getMessages('Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper eget nulla\
-        facilisi etiam dignissim diam. Pulvinar elementum integer enim neque volutpat ac\
-        tincidunt. Ornare suspendisse sed nisi lacus sed viverra tellus.', 'Test Peron', 'Test Kurs', false),
-];
-
 export default function SimpleTable() {
+    const [messages, setMessages] = useState([]);
+
+    async function getAllMessages() {
+        try {
+            const messages = await axios.get('http://localhost:3333/messages')
+            setMessages(messages.data)
+
+        } catch (error) {
+            // TODO
+            console.error(error);
+        }
+    }
+
+    useEffect(() => {
+        getAllMessages()
+    }, [setMessages])
+
+
     const classes = useStyles();
 
     return (
@@ -59,19 +52,17 @@ export default function SimpleTable() {
                         <TableCell></TableCell>
                         <TableCell align="left">Nachricht</TableCell>
                         <TableCell align="left">Absender</TableCell>
-                        <TableCell align="left">Kurs</TableCell>
-                        <TableCell align="left">gelesen</TableCell>
+                        <TableCell align="left">Gelesen</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {tempTestMessage.map((row) => (
+                    {messages.map((row) => (
                         <TableRow key={row.name}>
-                            <TableCell align="left"> <MessageAcionButtonGroup /> </TableCell>
-                            <TableCell align="left">{row.message}</TableCell>
-                            <TableCell align="left">{row.sender}</TableCell>
-                            <TableCell align="left">{row.course}</TableCell>
+                            <TableCell align="left"> <MessageAcionButtonGroup message={row} /> </TableCell>
+                            <TableCell align="left">{row.body}</TableCell>
+                            <TableCell align="left">{row.senderName}</TableCell>
                             <TableCell align="left">{(() => {
-                                if (row.isRead) {
+                                if (row.isRead === 1) {
                                     return <CheckBoxIcon />
                                 }
                                 else {
