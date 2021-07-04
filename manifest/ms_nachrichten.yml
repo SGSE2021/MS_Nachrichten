@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nachrichten
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nachrichten
+  template:
+    metadata:
+      labels:
+        app: nachrichten
+    spec:
+      nodeSelector:
+        "beta.kubernetes.io/os": linux
+      containers:
+      - name: nachrichten
+        image: sgse2021containerregistry.azurecr.io/ms_nachrichten:latest
+        ports:
+        - containerPort: 8080 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nachrichten
+spec:
+  ports:
+  - port: 8080
+  selector:
+    app: nachrichten

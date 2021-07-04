@@ -11,6 +11,7 @@ import Paper from '@material-ui/core/Paper';
 import MessageAcionButtonGroup from './MessageAcionButtonGroup';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
+import Env from './Env'
 
 import axios from 'axios';
 import ViewMessage from './ViewMessage'
@@ -28,7 +29,8 @@ export default function SimpleTable() {
 
     async function getAllMessages() {
         try {
-            const messages = await axios.get('http://localhost:3333/messages')
+            // URL + /API/messages
+            const messages = await axios.get(Env.BACK_URL + '/messages')
             setMessages(messages.data)
 
         } catch (error) {

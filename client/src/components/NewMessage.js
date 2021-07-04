@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
+import Env from './Env'
 
 import axios from 'axios';
 import AddReceiver from './AddReceiver'
@@ -35,7 +36,7 @@ export default function EmailInputTextField() {
 
     async function getAllUsers() {
         try {
-            const users = await axios.get('http://localhost:3333/users')
+            const users = await axios.get(Env.BACK_URL +'/users')
             console.log(users)
             setUsers(users.data.users)
 
