@@ -261,6 +261,31 @@ func (mc MessageController) AddMessage(w http.ResponseWriter, r *http.Request, p
 	fmt.Fprintf(w, "%s", uj)
 }
 
+//PUT Message
+func (mc MessageController) UpdateMessage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	id := p.ByName("id")
+	if !bson.IsObjectIdHex(id) {
+		w.WriteHeader(404)
+		return
+	}
+	oid := bson.ObjectIdHex(id)
+
+	message := models.Message{}
+
+	json.NewDecoder(r.Body).Decode(&message)
+
+	mc.session.DB("MS_Nachrichten_DB").C("messages").UpdateId(oid, message)
+
+	uj, _ := json.Marshal(message)
+
+	header := w.Header()
+	header.Set("Content-Type", "application/json")
+	header.Set("Access-Control-Allow-Methods", header.Get("Allow"))
+	header.Set("Access-Control-Allow-Origin", "*")
+	w.WriteHeader(201)
+	fmt.Fprintf(w, "%s", uj)
+}
+
 // // DELETE Message
 func (mc MessageController) RemoveMessage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	id := p.ByName("id")

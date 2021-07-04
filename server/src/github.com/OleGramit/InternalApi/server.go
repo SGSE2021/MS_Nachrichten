@@ -43,10 +43,6 @@ func main() {
 	userContr := controllers.NewUserController(userManagementClient)
 	messageContr := controllers.NewMessageController(dbSession)
 
-	// REST client
-
-	// REST server
-
 	r.GET("/users/lecturers", userContr.GetUsersLecturers)
 
 	r.GET("/users/students", userContr.GetUsersStudents)
@@ -54,6 +50,8 @@ func main() {
 	r.GET("/messages", messageContr.GetMessages)
 
 	r.POST("/messages", messageContr.AddMessage)
+
+	r.PUT("/messages/:id", messageContr.UpdateMessage)
 
 	r.DELETE("/messages/:id", messageContr.RemoveMessage)
 
