@@ -1,0 +1,74 @@
+[
+  {
+    "_id": {
+      "$oid": "60e1f47c5c40de4640032811"
+    },
+    "senderID": "ID_01",
+    "recipientIDs": ["ID_01","ID_02","ID_03","ID_04"],
+    "body": "Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorpereget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim neque volutpatac tincidunt. Ornare suspendisse sed nisi lacus sed viverra tellus.",
+    "isRead": 0
+  },
+  {
+    "_id": {
+      "$oid": "60e1f47c5c40de4640032812"
+    },
+    "senderID": "ID_01",
+    "recipientIDs": ["ID_01","ID_03","ID_04"],
+    "body": "Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorpereget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim neque volutpatac tincidunt. Ornare suspendisse sed nisi lacus sed viverra tellus.",
+    "isRead": 0
+  },
+  {
+    "_id": {
+      "$oid": "60e1f47c5c40de4640032813"
+    },
+    "senderID": "ID_01",
+    "recipientIDs": ["ID_01","ID_03"],
+    "body": "Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorpereget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim neque volutpatac tincidunt. Ornare suspendisse sed nisi lacus sed viverra tellus.",
+    "isRead": 0
+  },
+  {
+    "_id": {
+      "$oid": "60e1f47c5c40de4640032814"
+    },
+    "senderID": "ID_02",
+    "recipientIDs": ["ID_01"],
+    "body": "Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorpereget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim neque volutpatac tincidunt. Ornare suspendisse sed nisi lacus sed viverra tellus.",
+    "isRead": 0
+  },
+  {
+    "_id": {
+      "$oid": "60e1f47c5c40de4640032815"
+    },
+    "senderID": "ID_03",
+    "recipientIDs": ["ID_01"],
+    "body": "Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorpereget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim neque volutpatac tincidunt. Ornare suspendisse sed nisi lacus sed viverra tellus.",
+    "isRead": 0
+  },
+  {
+    "_id": {
+      "$oid": "60e1f47c5c40de4640032816"
+    },
+    "senderID": "ID_04",
+    "recipientIDs": ["ID_01"],
+    "body": "Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorpereget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim neque volutpatac tincidunt. Ornare suspendisse sed nisi lacus sed viverra tellus.",
+    "isRead": 0
+  },
+  {
+    "_id": {
+      "$oid": "60e1f47c5c40de4640032817"
+    },
+    "senderID": "ID_01",
+    "recipientIDs": ["ID_01"],
+    "body": "Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorpereget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim neque volutpatac tincidunt. Ornare suspendisse sed nisi lacus sed viverra tellus.",
+    "isRead": 1
+  },
+  {
+    "_id": {
+      "$oid": "60e1f47c5c40de464003281d"
+    },
+    "senderID": "ID_01",
+    "recipientIDs": ["ID_01"],
+    "body": "Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorpereget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim neque volutpatac tincidunt. Ornare suspendisse sed nisi lacus sed viverra tellus.",
+    "isRead": 1
+  }
+]
