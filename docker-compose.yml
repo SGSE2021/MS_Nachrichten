@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+#   backend:
+#     env_file:
+#         "./backend/backend.env"
+#     build:
+#       context: ./backend
+#       dockerfile: ./Dockerfile
+#     image: "dmurphy1217/twitter-sentiment-backend"
+#     ports:
+#       - "3000:3000"
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    image: "sgse2021/ms_nachrichten"
+    ports:
+      - "3000:3000"
+      - "3001:3001"
+    # links:
+    #   - "backend:be"
