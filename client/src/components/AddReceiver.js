@@ -33,13 +33,13 @@ const useStyles = makeStyles((theme) => ({
   },
   reciverInput: {
     '& .MuiTextField-root': {
-        margin: theme.spacing(1),
-        width: "50%",
+      margin: theme.spacing(1),
+      width: "50%",
     },
-},
+  },
 }));
 
-export default function AddReceiver(senderIds, messageId) {
+export const AddReceiver = ({users, newMessageReceiver, handleReceiverChange}) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -51,12 +51,7 @@ export default function AddReceiver(senderIds, messageId) {
     setOpen(false);
   };
 
-  const getMessage = (messageId) => {
-    //TODO maybe in utils
-    return "THIS IS A TEST MESSAGE!!!"
-  }
-
-  const getSender = (senderIds) => {
+  const getSender = () => {
     //TODO maybe in utils
     return "Test Horst"
   }
@@ -69,6 +64,7 @@ export default function AddReceiver(senderIds, messageId) {
           id="outlined-size-small"
           variant="outlined"
           size="small"
+          value={newMessageReceiver}
         />
         <Button
           variant="contained"
@@ -95,10 +91,11 @@ export default function AddReceiver(senderIds, messageId) {
           <Fade in={open}>
             <div className={classes.paper}>
               <h2 id="receiver-message-modal-title">Empfänger Hinzufügen</h2>
-              <AddReceiverForm id="receiver-modal-description"
-                sender={getSender(senderIds)}
-                message={getMessage(messageId)}
-                onClose={handleClose} />
+              <AddReceiverForm users={users} id="receiver-modal-description"
+                sender={getSender()}
+                onClose={handleClose}
+                newMessageReceiver={newMessageReceiver}
+                handleReceiverChange={handleReceiverChange} />
             </div>
           </Fade>
         </Modal>
@@ -106,3 +103,5 @@ export default function AddReceiver(senderIds, messageId) {
     </form>
   );
 }
+
+export default AddReceiver
