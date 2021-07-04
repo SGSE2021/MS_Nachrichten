@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function MessageAcionButtonGroup({message}) {
+export default function MessageActionButtonGroup({message}) {
     const classes = useStyles();
 
     return (

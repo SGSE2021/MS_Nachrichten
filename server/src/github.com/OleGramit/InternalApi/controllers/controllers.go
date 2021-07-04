@@ -186,6 +186,34 @@ func (uc UserController) GetUsersLecturers(w http.ResponseWriter, r *http.Reques
 	fmt.Fprintf(w, "%s", uj)
 }
 
+func (uc UserController) GetUsersLecturerById(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	id := p.ByName("id")
+
+	resp, err := uc.client.Get("https://sgse2021.westeurope.cloudapp.azure.com/users/lecturers/" + id)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	defer resp.Body.Close()
+	bodyBytes, _ := ioutil.ReadAll(resp.Body)
+
+	// Convert response body to Todo struct
+	var lecturer models.Lecturer
+	json.Unmarshal(bodyBytes, &lecturer)
+	fmt.Printf("API Response as struct %+v\n", lecturer)
+
+	// Marshal provided interface into JSON structure
+	uj, _ := json.Marshal(lecturer)
+
+	// Write content-type, statuscode, payload
+	header := w.Header()
+	header.Set("Content-Type", "application/json")
+	header.Set("Access-Control-Allow-Methods", header.Get("Allow"))
+	header.Set("Access-Control-Allow-Origin", "*")
+	w.WriteHeader(200)
+	fmt.Fprintf(w, "%s", uj)
+}
+
 func (uc UserController) GetUsersStudents(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	resp, err := uc.client.Get("https://sgse2021.westeurope.cloudapp.azure.com/users/students")
 	if err != nil {
@@ -216,6 +244,36 @@ func (uc UserController) GetUsersStudents(w http.ResponseWriter, r *http.Request
 	fmt.Fprintf(w, "%s", uj)
 }
 
+func (uc UserController) GetUsersStudentById(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	id := p.ByName("id")
+
+	fmt.Println("ID", "https://sgse2021.westeurope.cloudapp.azure.com/users/students/"+id)
+
+	resp, err := uc.client.Get("https://sgse2021.westeurope.cloudapp.azure.com/users/students/" + id)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	defer resp.Body.Close()
+	bodyBytes, _ := ioutil.ReadAll(resp.Body)
+
+	// Convert response body to Todo struct
+	var student models.Student
+	json.Unmarshal(bodyBytes, &student)
+	fmt.Printf("API Response as struct %+v\n", student)
+
+	// Marshal provided interface into JSON structure
+	uj, _ := json.Marshal(student)
+
+	// Write content-type, statuscode, payload
+	header := w.Header()
+	header.Set("Content-Type", "application/json")
+	header.Set("Access-Control-Allow-Methods", header.Get("Allow"))
+	header.Set("Access-Control-Allow-Origin", "*")
+	w.WriteHeader(200)
+	fmt.Fprintf(w, "%s", uj)
+}
+
 // GET Messages
 func (mc MessageController) GetMessages(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	// Stub all messages
@@ -225,13 +283,8 @@ func (mc MessageController) GetMessages(w http.ResponseWriter, r *http.Request, 
 	if err := mc.session.DB("MS_Nachrichten_DB").C("messages").Find(nil).All(&messages); err != nil {
 		w.WriteHeader(404)
 		return
-	} else {
-		fmt.Print("MESSAGES:", messages)
 	}
-
 	uj, _ := json.Marshal(messages)
-
-	fmt.Printf("UJ:%s", uj)
 
 	header := w.Header()
 	header.Set("Content-Type", "application/json")
@@ -262,29 +315,37 @@ func (mc MessageController) AddMessage(w http.ResponseWriter, r *http.Request, p
 }
 
 //PUT Message
-func (mc MessageController) UpdateMessage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-	id := p.ByName("id")
-	if !bson.IsObjectIdHex(id) {
-		w.WriteHeader(404)
-		return
-	}
-	oid := bson.ObjectIdHex(id)
+// func (mc MessageController) UpdateMessage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+// 	fmt.Println("PUT: ")
+// 	id := p.ByName("id")
+// 	fmt.Println("PUT: ", id)
+// 	if !bson.IsObjectIdHex(id) {
+// 		w.WriteHeader(404)
+// 		return
+// 	}
+// 	oid := bson.ObjectIdHex(id)
 
-	message := models.Message{}
+// 	message := models.Message{}
 
-	json.NewDecoder(r.Body).Decode(&message)
+// 	json.NewDecoder(r.Body).Decode(&message)
 
-	mc.session.DB("MS_Nachrichten_DB").C("messages").UpdateId(oid, message)
+// 	mc.session.DB("MS_Nachrichten_DB").C("messages").UpdateId(oid, message)
 
-	uj, _ := json.Marshal(message)
+// 	uj, _ := json.Marshal(message)
 
-	header := w.Header()
-	header.Set("Content-Type", "application/json")
-	header.Set("Access-Control-Allow-Methods", header.Get("Allow"))
-	header.Set("Access-Control-Allow-Origin", "*")
-	w.WriteHeader(201)
-	fmt.Fprintf(w, "%s", uj)
-}
+// 	header := w.Header()
+// 	// header.Set("Content-Type", "application/json")
+// 	// header.Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+// 	// header.Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+// 	// header.Set("Access-Control-Request-Headers", "*")
+// 	// header.Set("Access-Control-Allow-Origin", "*")
+// 	header.Set("Content-Type", "application/json")
+// 	header.Set("Access-Control-Allow-Methods", header.Get("Allow"))
+// 	header.Set("Access-Control-Allow-Origin", "*")
+// 	w.WriteHeader(201)
+// 	fmt.Fprintf(w, "%s", uj)
+// 	fmt.Println("PUT END")
+// }
 
 // // DELETE Message
 func (mc MessageController) RemoveMessage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {

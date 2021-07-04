@@ -8,7 +8,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import MessageAcionButtonGroup from './MessageAcionButtonGroup';
+import MessageActionButtonGroup from './MessageActionButtonGroup';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import Env from './Env'
@@ -27,12 +27,36 @@ const useStyles = makeStyles({
 export default function SimpleTable() {
     const [messages, setMessages] = useState([]);
 
+    // TODO FILTER ONLY IF RECIPIENT
+
+    async function getUserById(userId) {
+        try {
+            // URL + /API/messages
+            let user = await axios.get(Env.BACK_URL + '/users/students/' + userId)
+            if (user.data.id === "") {
+                user = await axios.get(Env.BACK_URL + '/users/lecturers/' + userId)
+            }
+            if (user.data.id === "") {
+                // const user = await axios.get(Env.BACK_URL + '/users/students/' + userId) //TODO
+            }
+            return user
+        } catch (error) {
+            // TODO
+            console.error(error);
+        }
+    }
+
     async function getAllMessages() {
         try {
             // URL + /API/messages
-            const messages = await axios.get(Env.BACK_URL + '/messages')
-            setMessages(messages.data)
+            let messages = await axios.get(Env.BACK_URL + '/messages')
+            messages = messages.data
+            for (let i = 0; i < messages.length; i++) {
+                const user = await getUserById(messages[i].senderID)
+                messages[i].senderName = user.data.firstname + " " + user.data.lastname
+            }
 
+            setMessages(messages)
         } catch (error) {
             // TODO
             console.error(error);
@@ -54,24 +78,14 @@ export default function SimpleTable() {
                         <TableCell></TableCell>
                         <TableCell align="left">Nachricht</TableCell>
                         <TableCell align="left">Absender</TableCell>
-                        <TableCell align="left">Gelesen</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {messages.map((row) => (
                         <TableRow key={row.name}>
-                            <TableCell align="left"> <MessageAcionButtonGroup message={row} /> </TableCell>
+                            <TableCell align="left"> <MessageActionButtonGroup message={row} /> </TableCell>
                             <TableCell align="left">{row.body}</TableCell>
                             <TableCell align="left">{row.senderName}</TableCell>
-                            <TableCell align="left">{(() => {
-                                if (row.isRead === 1) {
-                                    return <CheckBoxIcon />
-                                }
-                                else {
-                                    return <CheckBoxOutlineBlankIcon />
-                                }
-                            })()
-                            }</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>

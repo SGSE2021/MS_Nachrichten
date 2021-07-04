@@ -62,7 +62,6 @@ type (
 		SenderID     string        `json:"senderID" bson:"senderID"`
 		RecipientIDs []string      `json:"recipientIDs" bson:"recipientIDs"`
 		MessageBody  string        `json:"body" bson:"body"`
-		IsRead       int           `json:"isRead" bson:"isRead"`
 	}
 )
 

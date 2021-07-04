@@ -45,13 +45,15 @@ func main() {
 
 	r.GET("/users/lecturers", userContr.GetUsersLecturers)
 
+	r.GET("/users/lecturers/:id", userContr.GetUsersLecturerById)
+
 	r.GET("/users/students", userContr.GetUsersStudents)
+
+	r.GET("/users/students/:id", userContr.GetUsersStudentById)
 
 	r.GET("/messages", messageContr.GetMessages)
 
 	r.POST("/messages", messageContr.AddMessage)
-
-	r.PUT("/messages/:id", messageContr.UpdateMessage)
 
 	r.DELETE("/messages/:id", messageContr.RemoveMessage)
 
