@@ -12,7 +12,7 @@ env:
   IMAGE_NAME: ms_nachrichten
   SERVICE_NAME: nachrichten
   DOCKERFILE: ./client/Dockerfile
-  MANIFESTFILE: ./manifest/ms_nachrichten.yml
+  MANIFESTFILE: manifest/ms_nachrichten.yml
 
 jobs:
   build:
