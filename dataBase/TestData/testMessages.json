@@ -1,0 +1,30 @@
+[
+    {
+      "_id": {
+        "$oid": "60e1bd580e75a118c734dff5"
+      },
+      "senderID": "ID01",
+      "recipientIDs": ["ID_01"],
+      "messageBody": "Test Text",
+      "isRead": "0"
+    },
+    {
+      "_id": {
+        "$oid": "60e1bd710e75a118c734dff6"
+      },
+      "senderID": "ID02",
+      "recipientIDs": ["ID_02"],
+      "messageBody": "Test Text",
+      "isRead": "0"
+    },
+    {
+      "_id": {
+        "$oid": "60e1bd7c0e75a118c734dff7"
+      },
+      "senderID": "ID03",
+      "recipientIDs": ["ID_03"],
+      "messageBody": "Test Text",
+      "isRead": "1"
+    }
+]
+  

@@ -1,15 +1,18 @@
 package models
 
+import "gopkg.in/mgo.v2/bson"
+
 // Users []User
 // Messages []Message
 // Message
 
 type (
 	User struct {
-		Name      string   `json:"name"`
-		FirstName string   `json:"firstName"`
-		UserID    string   `json:"id"`
-		Curses    []string `json:"courses"`
+		UserID    bson.ObjectId `json:"_id"`
+		Name      string        `json:"name"`
+		FirstName string        `json:"firstName"`
+		UserType  string        `json:"userType"`
+		Curses    []string      `json:"courses"`
 	}
 )
 
@@ -21,11 +24,10 @@ type (
 
 type (
 	Message struct {
-		MessageID      string   `json:"messageId"`
-		SenderName     string   `json:"senderName"`
-		RecipientNames []string `json:"recipientNames"`
-		MessageBody    string   `json:"body"`
-		IsRead         int      `json:"isRead"`
+		SenderID     string   `json:"senderID"`
+		RecipientIDs []string `json:"recipientIDs"`
+		MessageBody  string   `json:"body"`
+		IsRead       int      `json:"isRead"`
 	}
 )
 
