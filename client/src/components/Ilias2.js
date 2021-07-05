@@ -15,6 +15,8 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import SchoolIcon from '@material-ui/icons/School';
+import { BrowserRouter as Router, Link } from 'react-router-dom'
+
 
 import MessagesSendShowTabs from './MessagesSendShowTabs'
 
@@ -83,6 +85,12 @@ export default function PersistentDrawerLeft() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
+  const handleNavigatorClick = (key) => {
+    console.log("test");
+    console.log(key);
+    return <a href={'http://google.com'}>Google</a>
+  }
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -111,7 +119,7 @@ export default function PersistentDrawerLeft() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Persistent drawer
+            Ilias2.0
           </Typography>
         </Toolbar>
       </AppBar>
@@ -134,13 +142,34 @@ export default function PersistentDrawerLeft() {
           </IconButton>
         </div>
         <Divider />
-        <List>
-          {['Startseite', 'Nachrichten', 'Kurse', 'Prüfungen', 'Studierende', 'Lehrende', 'Raumbelegung', 'Ausloggen'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemText primary={text} />
+        <Router>
+          <List>
+            <ListItem component="a" href="https://sgse2021.westeurope.cloudapp.azure.com/users/" button key={'Startseite'}>
+              <ListItemText primary={'Startseite'} />
             </ListItem>
-          ))}
-        </List>
+            <ListItem component="a" href="https://sgse2021.westeurope.cloudapp.azure.com/messages/" button key={'Startseite'}>
+              <ListItemText primary={'Nachrichten'} />
+            </ListItem>
+            <ListItem component="a" href="https://sgse2021.westeurope.cloudapp.azure.com/courses/" button key={'Startseite'}>
+              <ListItemText primary={'Kurse'} />
+            </ListItem>
+            <ListItem component="a" href="https://sgse2021.westeurope.cloudapp.azure.com/exams/" button key={'Startseite'}>
+              <ListItemText primary={'Prüfungen'} />
+            </ListItem>
+            <ListItem component="a" href="https://sgse2021.westeurope.cloudapp.azure.com/users/" button key={'Startseite'}>
+              <ListItemText primary={'Studierende'} />
+            </ListItem>
+            <ListItem component="a" href="https://sgse2021.westeurope.cloudapp.azure.com/users/" button key={'Startseite'}>
+              <ListItemText primary={'Lehrende'} />
+            </ListItem>
+            <ListItem component="a" href="https://sgse2021.westeurope.cloudapp.azure.com/users/" button key={'Startseite'}>
+              <ListItemText primary={'Raumbelegung'} />
+            </ListItem>
+            <ListItem component="a" href="https://sgse2021.westeurope.cloudapp.azure.com/users/" button key={'Startseite'}>
+              <ListItemText primary={'Ausloggen'} />
+            </ListItem>
+          </List>
+        </Router>
         <Divider />
       </Drawer>
       <main
