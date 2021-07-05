@@ -11,9 +11,18 @@
 //     LECTURER
 // }
 
-export const getLoggedUser = () =>{
-    const currentUserString = localStorage.getItem( "current-user" );
-    const currentUserObject = JSON.parse(currentUserString )
+export const getLoggedUser = () => {
+
+    // TODO REMOVE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    localStorage.setItem("current-user", JSON.stringify({
+        "uid": "c4PDuisvvQOlc4PgEYcUlDZ1t9r2",
+        "firstname": "test",
+        "lastname": "test",
+        "role": 2,
+    }))
+
+    const currentUserString = localStorage.getItem("current-user");
+    return JSON.parse(currentUserString)
 }
 
 export default getLoggedUser

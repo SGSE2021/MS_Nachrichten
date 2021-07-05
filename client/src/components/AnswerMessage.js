@@ -27,6 +27,10 @@ export default function AnswerMessage({message}) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
+  function makeBodyToAnswerBody(messageBody) {
+    return '\n----------------------------------\n'.concat(messageBody)
+  }
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -68,7 +72,8 @@ export default function AnswerMessage({message}) {
             <h2 id="answer-message-modal-title">Nachricht</h2>
             <AnswerMessageForm id="answer-message-modal-description"
               sender={getSender()}
-              message={getMessage()}
+              messageBody={makeBodyToAnswerBody(getMessage())}
+              message={message}
               onClose={handleClose} />
           </div>
         </Fade>

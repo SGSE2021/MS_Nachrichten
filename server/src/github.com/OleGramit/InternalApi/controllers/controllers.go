@@ -157,7 +157,7 @@ func NewMessageController(session *mgo.Session) *MessageController {
 
 // GET Users
 func (uc UserController) GetUsersLecturers(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-	resp, err := uc.client.Get("https://sgse2021.westeurope.cloudapp.azure.com/users/lecturers")
+	resp, err := uc.client.Get("https://sgse2021.westeurope.cloudapp.azure.com/users-api/lecturers")
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -165,23 +165,18 @@ func (uc UserController) GetUsersLecturers(w http.ResponseWriter, r *http.Reques
 	defer resp.Body.Close()
 	bodyBytes, _ := ioutil.ReadAll(resp.Body)
 
-	// Convert response body to string
-	bodyString := string(bodyBytes)
-	fmt.Println("API Response as String:\n" + bodyString)
-
 	// Convert response body to Todo struct
 	var lecturers []models.Lecturer
 	json.Unmarshal(bodyBytes, &lecturers)
-	fmt.Printf("API Response as struct %+v\n", lecturers)
 
 	// Marshal provided interface into JSON structure
 	uj, _ := json.Marshal(lecturers)
 
 	// Write content-type, statuscode, payload
-	header := w.Header()
-	header.Set("Content-Type", "application/json")
-	header.Set("Access-Control-Allow-Methods", header.Get("Allow"))
-	header.Set("Access-Control-Allow-Origin", "*")
+	// header := w.Header()
+	// header.Set("Content-Type", "application/json")
+	// header.Set("Access-Control-Allow-Methods", header.Get("Allow"))
+	// header.Set("Access-Control-Allow-Origin", "*")
 	w.WriteHeader(200)
 	fmt.Fprintf(w, "%s", uj)
 }
@@ -189,7 +184,7 @@ func (uc UserController) GetUsersLecturers(w http.ResponseWriter, r *http.Reques
 func (uc UserController) GetUsersLecturerById(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	id := p.ByName("id")
 
-	resp, err := uc.client.Get("https://sgse2021.westeurope.cloudapp.azure.com/users/lecturers/" + id)
+	resp, err := uc.client.Get("https://sgse2021.westeurope.cloudapp.azure.com/users-api/lecturers/" + id)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -200,22 +195,21 @@ func (uc UserController) GetUsersLecturerById(w http.ResponseWriter, r *http.Req
 	// Convert response body to Todo struct
 	var lecturer models.Lecturer
 	json.Unmarshal(bodyBytes, &lecturer)
-	fmt.Printf("API Response as struct %+v\n", lecturer)
 
 	// Marshal provided interface into JSON structure
 	uj, _ := json.Marshal(lecturer)
 
 	// Write content-type, statuscode, payload
-	header := w.Header()
-	header.Set("Content-Type", "application/json")
-	header.Set("Access-Control-Allow-Methods", header.Get("Allow"))
-	header.Set("Access-Control-Allow-Origin", "*")
+	// header := w.Header()
+	// header.Set("Content-Type", "application/json")
+	// header.Set("Access-Control-Allow-Methods", header.Get("Allow"))
+	// header.Set("Access-Control-Allow-Origin", "*")
 	w.WriteHeader(200)
 	fmt.Fprintf(w, "%s", uj)
 }
 
 func (uc UserController) GetUsersStudents(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-	resp, err := uc.client.Get("https://sgse2021.westeurope.cloudapp.azure.com/users/students")
+	resp, err := uc.client.Get("https://sgse2021.westeurope.cloudapp.azure.com/users-api/students")
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -223,23 +217,18 @@ func (uc UserController) GetUsersStudents(w http.ResponseWriter, r *http.Request
 	defer resp.Body.Close()
 	bodyBytes, _ := ioutil.ReadAll(resp.Body)
 
-	// Convert response body to string
-	bodyString := string(bodyBytes)
-	fmt.Println("API Response as String:\n" + bodyString)
-
 	// Convert response body to Todo struct
 	var lecturers []models.Student
 	json.Unmarshal(bodyBytes, &lecturers)
-	fmt.Printf("API Response as struct %+v\n", lecturers)
 
 	// Marshal provided interface into JSON structure
 	uj, _ := json.Marshal(lecturers)
 
 	// Write content-type, statuscode, payload
-	header := w.Header()
-	header.Set("Content-Type", "application/json")
-	header.Set("Access-Control-Allow-Methods", header.Get("Allow"))
-	header.Set("Access-Control-Allow-Origin", "*")
+	// header := w.Header()
+	// header.Set("Content-Type", "application/json")
+	// header.Set("Access-Control-Allow-Methods", header.Get("Allow"))
+	// header.Set("Access-Control-Allow-Origin", "*")
 	w.WriteHeader(200)
 	fmt.Fprintf(w, "%s", uj)
 }
@@ -247,9 +236,7 @@ func (uc UserController) GetUsersStudents(w http.ResponseWriter, r *http.Request
 func (uc UserController) GetUsersStudentById(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	id := p.ByName("id")
 
-	fmt.Println("ID", "https://sgse2021.westeurope.cloudapp.azure.com/users/students/"+id)
-
-	resp, err := uc.client.Get("https://sgse2021.westeurope.cloudapp.azure.com/users/students/" + id)
+	resp, err := uc.client.Get("https://sgse2021.westeurope.cloudapp.azure.com/users-api/students/" + id)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -260,36 +247,36 @@ func (uc UserController) GetUsersStudentById(w http.ResponseWriter, r *http.Requ
 	// Convert response body to Todo struct
 	var student models.Student
 	json.Unmarshal(bodyBytes, &student)
-	fmt.Printf("API Response as struct %+v\n", student)
 
 	// Marshal provided interface into JSON structure
 	uj, _ := json.Marshal(student)
 
 	// Write content-type, statuscode, payload
-	header := w.Header()
-	header.Set("Content-Type", "application/json")
-	header.Set("Access-Control-Allow-Methods", header.Get("Allow"))
-	header.Set("Access-Control-Allow-Origin", "*")
+	// header := w.Header()
+	// header.Set("Content-Type", "application/json")
+	// header.Set("Access-Control-Allow-Methods", header.Get("Allow"))
+	// header.Set("Access-Control-Allow-Origin", "*")
 	w.WriteHeader(200)
 	fmt.Fprintf(w, "%s", uj)
 }
 
 // GET Messages
-func (mc MessageController) GetMessages(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-	// Stub all messages
+func (mc MessageController) GetMessagesForUserId(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	id := p.ByName("id")
+
 	messages := []models.Message{}
 
-	// Fetch message
-	if err := mc.session.DB("MS_Nachrichten_DB").C("messages").Find(nil).All(&messages); err != nil {
+	// Fetch message db.getCollection("messages").find({"recipientIDs":"YGWRONITaNW3fwvTcxGjllop4fA2"}).pretty()
+	if err := mc.session.DB("MS_Nachrichten_DB").C("messages").Find(bson.D{{"recipientIDs", id}}).All(&messages); err != nil {
 		w.WriteHeader(404)
 		return
 	}
 	uj, _ := json.Marshal(messages)
 
-	header := w.Header()
-	header.Set("Content-Type", "application/json")
-	header.Set("Access-Control-Allow-Methods", header.Get("Allow"))
-	header.Set("Access-Control-Allow-Origin", "*")
+	// header := w.Header()
+	// header.Set("Content-Type", "application/json")
+	// header.Set("Access-Control-Allow-Methods", header.Get("Allow"))
+	// header.Set("Access-Control-Allow-Origin", "*")
 	w.WriteHeader(200)
 	fmt.Fprintf(w, "%s", uj)
 }
@@ -306,10 +293,10 @@ func (mc MessageController) AddMessage(w http.ResponseWriter, r *http.Request, p
 
 	uj, _ := json.Marshal(message)
 
-	header := w.Header()
-	header.Set("Content-Type", "application/json")
-	header.Set("Access-Control-Allow-Methods", header.Get("Allow"))
-	header.Set("Access-Control-Allow-Origin", "*")
+	// header := w.Header()
+	// header.Set("Content-Type", "application/json")
+	// header.Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	// header.Set("Access-Control-Allow-Origin", "*")
 	w.WriteHeader(201)
 	fmt.Fprintf(w, "%s", uj)
 }
@@ -351,6 +338,8 @@ func (mc MessageController) AddMessage(w http.ResponseWriter, r *http.Request, p
 func (mc MessageController) RemoveMessage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	id := p.ByName("id")
 
+	fmt.Println("DELETE:", id)
+
 	// Verify id is ObjectId, otherwise bail
 	if !bson.IsObjectIdHex(id) {
 		w.WriteHeader(404)
@@ -365,9 +354,9 @@ func (mc MessageController) RemoveMessage(w http.ResponseWriter, r *http.Request
 		return
 	}
 
-	header := w.Header()
-	header.Set("Content-Type", "application/json")
-	header.Set("Access-Control-Allow-Methods", header.Get("Allow"))
-	header.Set("Access-Control-Allow-Origin", "*")
+	// header := w.Header()
+	// header.Set("Content-Type", "application/json")
+	// header.Set("Access-Control-Allow-Methods", header.Get("Allow"))
+	// header.Set("Access-Control-Allow-Origin", "*")
 	w.WriteHeader(200)
 }

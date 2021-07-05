@@ -4,6 +4,7 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { makeStyles } from '@material-ui/core/styles';
 import ViewMessage from './ViewMessage'
 import AnswerMessage from './AnswerMessage'
+import deleteMessage from './helper/DeleteMessage'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -16,18 +17,19 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function MessageActionButtonGroup({message}) {
+export default function MessageActionButtonGroup({ message }) {
     const classes = useStyles();
+
+    const handleDelete = () =>{
+        deleteMessage(message.id)
+    }
 
     return (
         <div className={classes.root}>
             <ButtonGroup orientation="vertical" aria-label="vertical contained primary button group" variant="text">
-                <ViewMessage message={message}/>
-                <AnswerMessage message={message}/>
-                <Button onClick={
-                    // TODO DELETE REST
-                    console.log("DELETE MESSAGE")
-                }>Löschen</Button>
+                <ViewMessage message={message} />
+                <AnswerMessage message={message} />
+                <Button onClick={handleDelete}>Löschen</Button>
             </ButtonGroup>
         </div>
     );

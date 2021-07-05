@@ -4,11 +4,11 @@ import (
 	"crypto/tls"
 	"net/http"
 
-	"gopkg.in/mgo.v2"
-
-	// Third party packages
 	"github.com/OleGramit/InternalApi/controllers"
 	"github.com/julienschmidt/httprouter"
+	"github.com/rs/cors"
+	"gopkg.in/mgo.v2"
+	// Third party packages
 )
 
 func getDBSession() *mgo.Session {
@@ -51,11 +51,29 @@ func main() {
 
 	r.GET("/users/students/:id", userContr.GetUsersStudentById)
 
-	r.GET("/messages", messageContr.GetMessages)
+	r.GET("/messages/:id", messageContr.GetMessagesForUserId)
 
 	r.POST("/messages", messageContr.AddMessage)
 
 	r.DELETE("/messages/:id", messageContr.RemoveMessage)
 
-	http.ListenAndServe("localhost:3333", r)
+	// r.GlobalOPTIONS = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	// 	if r.Header.Get("Access-Control-Request-Method") != "" {
+	// 		// Set CORS headers
+	// 		header := w.Header()
+	// 		header.Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	// 		header.Set("Access-Control-Allow-Origin", "*")
+	// 	}
+
+	// 	// Adjust status code to 204
+	// 	w.WriteHeader(http.StatusNoContent)
+	// })
+
+	_cors := cors.Options{
+		AllowedMethods: []string{"POST", "GET", "DELETE", "OPTIONS"},
+		AllowedOrigins: []string{"http://localhost:3000", "https://sgse2021.westeurope.cloudapp.azure.com"},
+	}
+	handler := cors.New(_cors).Handler(r)
+
+	http.ListenAndServe("localhost:3333", handler)
 }

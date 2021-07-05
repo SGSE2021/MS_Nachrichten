@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
+
+import sendMessage from './helper/SendMessage'
 
 
 
@@ -20,8 +22,23 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export const AnswerMessageForm = ({ sender, message, onClose, onAnswer }) => {
+export const AnswerMessageForm = ({ sender, messageBody, message, onClose, onAnswer }) => {
   const classes = useStyles();
+  const [answerMessageBody, setAnswerMessageBody] = useState(messageBody)
+
+  const handleMessageTextChange = (event) => {
+    setAnswerMessageBody(event.target.value)
+  }
+
+  const handleSendAnswer = () =>{
+    message.recipientIDs = [message.senderID]
+    message.senderID = ["TODO THIS USER"]
+    message.body = answerMessageBody
+    sendMessage(message)
+    onClose()
+  }
+
+
   return (
     <form className={classes.root} noValidate autoComplete="off">
       <div>
@@ -41,16 +58,15 @@ export const AnswerMessageForm = ({ sender, message, onClose, onAnswer }) => {
           multiline
           rows={25}
           variant="outlined"
-          InputProps={{
-            readOnly: true,
-          }}
-          value={message}
+          value={answerMessageBody}
+          onChange={handleMessageTextChange}
         />
         <Button
           variant="contained"
           color="primary"
           className={classes.button}
-          endIcon={<Icon>send</Icon>}>
+          endIcon={<Icon>send</Icon>}
+          onClick={handleSendAnswer}>
           Antworten
         </Button>
         <Button

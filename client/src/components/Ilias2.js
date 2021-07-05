@@ -81,19 +81,31 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PersistentDrawerLeft(loggedUser) {
+export default function PersistentDrawerLeft({loggedUser}) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  
+
   const handleDrawerOpen = () => {
-    console.log("LOGGED_USER:", loggedUser)
     setOpen(true);
   };
 
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const renderAdminUserItems = (role) => {
+    if (role === 2) {
+      return <div>
+        <ListItem component="a" href="https://sgse2021.westeurope.cloudapp.azure.com/users/students" button key={'Studierende'}>
+          <ListItemText primary={'Studierende'} />
+        </ListItem>
+        <ListItem component="a" href="https://sgse2021.westeurope.cloudapp.azure.com/users/lecturers" button key={'Lehrende'}>
+          <ListItemText primary={'Lehrende'} />
+        </ListItem>)
+      </div>
+    }
+  }
 
   return (
     <div className={classes.root}>
@@ -119,7 +131,7 @@ export default function PersistentDrawerLeft(loggedUser) {
           </Typography>
           <div>
             <IconButton
-              component="a" 
+              component="a"
               href="https://sgse2021.westeurope.cloudapp.azure.com/users/settings"
             >
               <AccountCircleIcon fontSize="large" />
@@ -127,7 +139,7 @@ export default function PersistentDrawerLeft(loggedUser) {
           </div>
           <div>
             <label>
-              USER TODO
+              {loggedUser.firstname + ' ' + loggedUser.lastname}
             </label>
           </div>
         </Toolbar>
@@ -157,25 +169,22 @@ export default function PersistentDrawerLeft(loggedUser) {
             <ListItem component="a" href="https://sgse2021.westeurope.cloudapp.azure.com/users/" button key={'Startseite'}>
               <ListItemText primary={'Startseite'} />
             </ListItem>
-            <ListItem component="a" href="https://sgse2021.westeurope.cloudapp.azure.com/messages/" button key={'Startseite'}>
+            <ListItem component="a" href="https://sgse2021.westeurope.cloudapp.azure.com/messages/" button key={'Nachrichten'}>
               <ListItemText primary={'Nachrichten'} />
             </ListItem>
-            <ListItem component="a" href="https://sgse2021.westeurope.cloudapp.azure.com/courses/" button key={'Startseite'}>
+            <ListItem component="a" href="https://sgse2021.westeurope.cloudapp.azure.com/courses/" button key={'Kurse'}>
               <ListItemText primary={'Kurse'} />
             </ListItem>
-            <ListItem component="a" href="https://sgse2021.westeurope.cloudapp.azure.com/exams/" button key={'Startseite'}>
+            <ListItem component="a" href="https://sgse2021.westeurope.cloudapp.azure.com/exams/" button key={'Prüfungen'}>
               <ListItemText primary={'Prüfungen'} />
             </ListItem>
-            <ListItem component="a" href="https://sgse2021.westeurope.cloudapp.azure.com/users/students" button key={'Startseite'}>
-              <ListItemText primary={'Studierende'} />
-            </ListItem>
-            <ListItem component="a" href="https://sgse2021.westeurope.cloudapp.azure.com/users/lecturers" button key={'Startseite'}>
-              <ListItemText primary={'Lehrende'} />
-            </ListItem>
-            <ListItem component="a" href="https://sgse2021.westeurope.cloudapp.azure.com/users/" button key={'Startseite'}>
+            {
+              renderAdminUserItems(loggedUser.role)
+            }
+            <ListItem component="a" href="https://www.ecosia.org/" button key={'Raumbelegung'}>
               <ListItemText primary={'Raumbelegung'} />
             </ListItem>
-            <ListItem component="a" href="https://sgse2021.westeurope.cloudapp.azure.com/users/" button key={'Startseite'}>
+            <ListItem component="a" href="https://www.ecosia.org/" button key={'Ausloggen'}>
               <ListItemText primary={'Ausloggen'} />
             </ListItem>
           </List>
@@ -188,7 +197,7 @@ export default function PersistentDrawerLeft(loggedUser) {
         })}
       >
         <div className={classes.drawerHeader} />
-        <MessagesSendShowTabs />
+        <MessagesSendShowTabs loggedUser={loggedUser}/>
       </main>
     </div>
   );

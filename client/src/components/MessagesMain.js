@@ -9,12 +9,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import MessageActionButtonGroup from './MessageActionButtonGroup';
-import CheckBoxIcon from '@material-ui/icons/CheckBox';
-import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
-import Env from './Env'
-
-import axios from 'axios';
-import ViewMessage from './ViewMessage'
+import getAllMessagesUser from './helper/GetAllMessagesUser'
 
 
 
@@ -24,47 +19,19 @@ const useStyles = makeStyles({
     },
 });
 
-export default function SimpleTable() {
+export default function SimpleTable({loggedUser}) {
     const [messages, setMessages] = useState([]);
 
     // TODO FILTER ONLY IF RECIPIENT
 
-    async function getUserById(userId) {
-        try {
-            // URL + /API/messages
-            let user = await axios.get(Env.BACK_URL + '/users/students/' + userId)
-            if (user.data.id === "") {
-                user = await axios.get(Env.BACK_URL + '/users/lecturers/' + userId)
-            }
-            if (user.data.id === "") {
-                // const user = await axios.get(Env.BACK_URL + '/users/students/' + userId) //TODO
-            }
-            return user
-        } catch (error) {
-            // TODO
-            console.error(error);
-        }
-    }
+    async function getMessages() {
+        const tempMessages = await getAllMessagesUser(loggedUser.uid)
+        setMessages(tempMessages)
 
-    async function getAllMessages() {
-        try {
-            // URL + /API/messages
-            let messages = await axios.get(Env.BACK_URL + '/messages')
-            messages = messages.data
-            for (let i = 0; i < messages.length; i++) {
-                const user = await getUserById(messages[i].senderID)
-                messages[i].senderName = user.data.firstname + " " + user.data.lastname
-            }
-
-            setMessages(messages)
-        } catch (error) {
-            // TODO
-            console.error(error);
-        }
     }
 
     useEffect(() => {
-        getAllMessages()
+        getMessages()
     }, [setMessages])
 
 

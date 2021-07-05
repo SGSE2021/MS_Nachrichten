@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MessagesSendShowTabs() {
+export default function MessagesSendShowTabs({loggedUser}) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -66,7 +66,7 @@ export default function MessagesSendShowTabs() {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        <MessagesMain />
+        <MessagesMain loggedUser={loggedUser} />
       </TabPanel>
       <TabPanel value={value} index={1}>
         <NewMessage/>

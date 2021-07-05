@@ -47,7 +47,6 @@ export default function EmailInputTextField() {
     }
 
     const handleMessageTextChange = (event) => {
-        console.log("NEW_MESSAGE_BODY", newMessageBody)
         setMessageBody(event.target.value)
     }
 
