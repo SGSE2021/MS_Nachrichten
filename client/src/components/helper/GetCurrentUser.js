@@ -14,12 +14,12 @@
 export const getLoggedUser = () => {
 
     // TODO REMOVE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    localStorage.setItem("current-user", JSON.stringify({
-        "uid": "c4PDuisvvQOlc4PgEYcUlDZ1t9r2",
-        "firstname": "test",
-        "lastname": "test",
-        "role": 2,
-    }))
+    // localStorage.setItem("current-user", JSON.stringify({
+    //     "uid": "c4PDuisvvQOlc4PgEYcUlDZ1t9r2",
+    //     "firstname": "test",
+    //     "lastname": "test",
+    //     "role": 2,
+    // }))
 
     const currentUserString = localStorage.getItem("current-user");
     return JSON.parse(currentUserString)
