@@ -15,7 +15,8 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import SchoolIcon from '@material-ui/icons/School';
-import { BrowserRouter as Router, Link } from 'react-router-dom'
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import { BrowserRouter as Router } from 'react-router-dom'
 
 
 import MessagesSendShowTabs from './MessagesSendShowTabs'
@@ -80,18 +81,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PersistentDrawerLeft() {
+export default function PersistentDrawerLeft(loggedUser) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-
-  const handleNavigatorClick = (key) => {
-    console.log("test");
-    console.log(key);
-    return <a href={'http://google.com'}>Google</a>
-  }
-
+  
   const handleDrawerOpen = () => {
+    console.log("LOGGED_USER:", loggedUser)
     setOpen(true);
   };
 
@@ -118,10 +114,24 @@ export default function PersistentDrawerLeft() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
-            Ilias2.0
+          <Typography variant="h6" noWrap position="left">
+            Ilias2.0 Nachrichten
           </Typography>
+          <div>
+            <IconButton
+              component="a" 
+              href="https://sgse2021.westeurope.cloudapp.azure.com/users/settings"
+            >
+              <AccountCircleIcon fontSize="large" />
+            </IconButton>
+          </div>
+          <div>
+            <label>
+              USER TODO
+            </label>
+          </div>
         </Toolbar>
+
       </AppBar>
       <Drawer
         className={classes.drawer}
@@ -156,10 +166,10 @@ export default function PersistentDrawerLeft() {
             <ListItem component="a" href="https://sgse2021.westeurope.cloudapp.azure.com/exams/" button key={'Startseite'}>
               <ListItemText primary={'Prüfungen'} />
             </ListItem>
-            <ListItem component="a" href="https://sgse2021.westeurope.cloudapp.azure.com/users/" button key={'Startseite'}>
+            <ListItem component="a" href="https://sgse2021.westeurope.cloudapp.azure.com/users/students" button key={'Startseite'}>
               <ListItemText primary={'Studierende'} />
             </ListItem>
-            <ListItem component="a" href="https://sgse2021.westeurope.cloudapp.azure.com/users/" button key={'Startseite'}>
+            <ListItem component="a" href="https://sgse2021.westeurope.cloudapp.azure.com/users/lecturers" button key={'Startseite'}>
               <ListItemText primary={'Lehrende'} />
             </ListItem>
             <ListItem component="a" href="https://sgse2021.westeurope.cloudapp.azure.com/users/" button key={'Startseite'}>

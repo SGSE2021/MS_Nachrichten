@@ -2,7 +2,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Ilias2 from './components/Ilias2';
+import getLoggedUser from './components/helper/GetCurrentUser';
+
 import MessagesMain from './components/MessagesMain'
 
-ReactDOM.render(<Ilias2 />, document.querySelector('#root'));
-    
+ReactDOM.render(<Ilias2 loggedUser={getLoggedUser()}/>, document.querySelector('#root'));
