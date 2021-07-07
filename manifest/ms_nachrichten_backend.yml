@@ -23,9 +23,9 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: nachrichten
+  name: nachrichten_backend
 spec:
   ports:
   - port: 8181
   selector:
-    app: nachrichten
+    app: nachrichten_backend
