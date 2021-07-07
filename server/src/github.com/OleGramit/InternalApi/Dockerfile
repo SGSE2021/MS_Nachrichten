@@ -15,8 +15,8 @@ RUN go mod download
 
 ENV OWN_REST_URL=localhost:8282
 
-ENV USER_REST_URL=http://userverwaltung.microservices.svc.cluster.local:8181/
-# ENV USER_REST_URL=https://sgse2021.westeurope.cloudapp.azure.com/api/users/
+# ENV USER_REST_URL=http://userverwaltung.microservices.svc.cluster.local:8181/
+ENV USER_REST_URL=https://sgse2021.westeurope.cloudapp.azure.com/api/users/
 
 ENV MOGODB_URL=mongodb://messagedb-user:v60TJstCeL@messages-mongodb.support.svc.cluster.local:27017/messagedb
 # ENV MOGODB_URL=mongodb://localhost
