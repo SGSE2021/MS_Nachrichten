@@ -15,7 +15,7 @@ RUN go mod download
 
 ENV OWN_REST_URL=localhost:8181
 
-ENV USER_REST_URL="http://userverwaltung.microservices.svc.cluster.local:8181/api/users/"
+ENV USER_REST_URL="http://userverwaltung.microservices.svc.cluster.local:8181/"
 
 EXPOSE 8181
 
