@@ -15,6 +15,8 @@ RUN go mod download
 
 ENV OWN_REST_URL=localhost:8181
 
+EXPOSE 8181
+
 # compile the binary
 RUN go build -o server .
 
