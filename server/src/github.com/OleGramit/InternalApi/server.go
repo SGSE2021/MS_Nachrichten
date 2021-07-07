@@ -95,5 +95,5 @@ func main() {
 	}
 	handler := cors.New(_cors).Handler(r)
 
-	http.ListenAndServe(ownRestUrl, handler)
+	http.ListenAndServeTLS(ownRestUrl, "server.crt", "server.key", handler)
 }
