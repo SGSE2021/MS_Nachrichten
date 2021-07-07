@@ -1,20 +1,20 @@
 version: '3'
 
 services:
-  # backend:
-  #   build:
-  #     context: ./server/src/github.com/OleGramit/InternalApi/Dockerfile
-  #     dockerfile: ./Dockerfile
-  #   image: "sgse2021/ms_nachrichten-backend"
-  #   ports:
-  #     - "8181:8181"
-  frontend:
+  backend:
     build:
-      context: ./client
-      dockerfile: Dockerfile
-    image: "sgse2021/ms_nachrichten"
+      context: ./server/src/github.com/OleGramit/InternalApi
+      dockerfile: ./Dockerfile
+    image: "sgse2021/ms_nachrichten-backend"
     ports:
-      - "3000:3000"
-      - "3001:3001"
+      - "3333:3333"
+  # frontend:
+  #   build:
+  #     context: ./client
+  #     dockerfile: Dockerfile
+  #   image: "sgse2021/ms_nachrichten"
+  #   ports:
+  #     - "3000:3000"
+  #     - "3001:3001"
     # links:
     #   - "backend:be"

@@ -69,6 +69,8 @@ func main() {
 
 	r.GET("/messages/:id", messageContr.GetMessagesForUserId)
 
+	r.GET("/messages/", messageContr.Test)
+
 	r.POST("/messages", messageContr.AddMessage)
 
 	r.DELETE("/messages/:id", messageContr.RemoveMessage)

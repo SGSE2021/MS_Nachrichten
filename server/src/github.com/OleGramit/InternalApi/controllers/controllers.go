@@ -190,6 +190,14 @@ func (mc MessageController) GetMessagesForUserId(w http.ResponseWriter, r *http.
 	fmt.Fprintf(w, "%s", uj)
 }
 
+func (mc MessageController) Test(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	messages := "Hello There!"
+	uj, _ := json.Marshal(messages)
+
+	w.WriteHeader(200)
+	fmt.Fprintf(w, "%s", uj)
+}
+
 // POST Message
 func (mc MessageController) AddMessage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	message := models.Message{}
