@@ -11,13 +11,16 @@ ADD . /app
 WORKDIR /app
 
 # pull in dependencies
-RUN go mod download
+# RUN go mod download
 
-ENV OWN_REST_URL=localhost:8181
+ENV OWN_REST_URL=localhost:3333
 
-ENV USER_REST_URL="http://userverwaltung.microservices.svc.cluster.local:8181/"
+# ENV USER_REST_URL="http://userverwaltung.microservices.svc.cluster.local:8181/"
+ENV USER_REST_URL=https://sgse2021.westeurope.cloudapp.azure.com/api/users/
 
-EXPOSE 8181
+ENV MOGODB_URL=mongodb://messagedb-user:v60TJstCeL@messages-mongodb.support.svc.cluster.local:27017/messagedb
+
+EXPOSE 3333
 
 # compile the binary
 RUN go build -o server .
