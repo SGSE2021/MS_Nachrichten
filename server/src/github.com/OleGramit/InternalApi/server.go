@@ -45,12 +45,10 @@ func getUserManagementSession() *http.Client {
 
 func main() {
 	// if local
-	// ownRestUrl, ok := os.LookupEnv("OWN_REST_URL")
-	// if !ok {
-	// 	ownRestUrl = "localhost:8181"
-	// }
-
-	ownRestUrl := "http://nachrichten-backend.microservices.svc.cluster.local:8181"
+	ownRestUrl, ok := os.LookupEnv("OWN_REST_URL")
+	if !ok {
+		ownRestUrl = "localhost:8282"
+	}
 
 	r := httprouter.New()
 	dbSession := getDBSession()
