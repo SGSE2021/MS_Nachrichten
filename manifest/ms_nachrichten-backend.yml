@@ -19,6 +19,7 @@ spec:
         image: sgse2021containerregistry.azurecr.io/ms_nachrichten-backend:latest
         ports:
         - containerPort: 8181 
+        
 --- 
 apiVersion: v1
 kind: Service
