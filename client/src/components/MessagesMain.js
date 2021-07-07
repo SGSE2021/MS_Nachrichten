@@ -27,7 +27,6 @@ export default function SimpleTable({loggedUser}) {
     async function getMessages() {
         const tempMessages = await getAllMessagesUser(loggedUser.uid)
         setMessages(tempMessages)
-
     }
 
     useEffect(() => {

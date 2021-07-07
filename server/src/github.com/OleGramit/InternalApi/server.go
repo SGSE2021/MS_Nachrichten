@@ -3,6 +3,7 @@ package main
 import (
 	"crypto/tls"
 	"net/http"
+	"os"
 
 	"github.com/OleGramit/InternalApi/controllers"
 	"github.com/julienschmidt/httprouter"
@@ -12,8 +13,15 @@ import (
 )
 
 func getDBSession() *mgo.Session {
+	mongoDBUrl, ok := os.LookupEnv("MOGODB_URL")
+
+	// if local
+	if !ok {
+		mongoDBUrl = "mongodb://localhost"
+	}
+
 	// Connect to our local mongo
-	s, err := mgo.Dial("mongodb://localhost")
+	s, err := mgo.Dial(mongoDBUrl)
 
 	// Check if connection error, is mongo running?
 	if err != nil {
@@ -34,7 +42,11 @@ func getUserManagementSession() *http.Client {
 }
 
 func main() {
-	// TODO: REMOVE STUBS
+	// if local
+	ownRestUrl, ok := os.LookupEnv("OWN_REST_URL")
+	if !ok {
+		ownRestUrl = "localhost:3333"
+	}
 
 	r := httprouter.New()
 	dbSession := getDBSession()
@@ -50,6 +62,10 @@ func main() {
 	r.GET("/users/students", userContr.GetUsersStudents)
 
 	r.GET("/users/students/:id", userContr.GetUsersStudentById)
+
+	r.GET("/users/administratives", userContr.GetUsersadministratives)
+
+	r.GET("/users/administratives/:id", userContr.GetUsersadministrativesById)
 
 	r.GET("/messages/:id", messageContr.GetMessagesForUserId)
 
@@ -75,5 +91,5 @@ func main() {
 	}
 	handler := cors.New(_cors).Handler(r)
 
-	http.ListenAndServe("localhost:3333", handler)
+	http.ListenAndServe(ownRestUrl, handler)
 }

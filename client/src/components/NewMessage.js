@@ -30,21 +30,21 @@ export default function EmailInputTextField() {
     const classes = useStyles();
 
     // Get all users
-    const [users, setUsers] = useState([]);
+    // const [users, setUsers] = useState([]);
     const [newMessageBody, setMessageBody] = useState()
     const [newMessageReceiver, setMessageReceiver] = useState([])
 
-    async function getAllUsers() {
-        try {
-            const users = await axios.get(Env.BACK_URL +'/users')
-            console.log(users)
-            setUsers(users.data.users)
+    // async function getAllUsers() {
+    //     try {
+    //         const users = await axios.get(Env.BACK_URL +'/users')
+    //         console.log(users)
+    //         setUsers(users.data.users)
 
-        } catch (error) {
-            // TODO
-            console.error(error);
-        }
-    }
+    //     } catch (error) {
+    //         // TODO
+    //         console.error(error);
+    //     }
+    // }
 
     const handleMessageTextChange = (event) => {
         setMessageBody(event.target.value)
@@ -55,15 +55,15 @@ export default function EmailInputTextField() {
     }
 
     useEffect(() => {
-        getAllUsers()
-    }, [setUsers, newMessageReceiver])
+        // getAllUsers()
+    }, [newMessageReceiver])
 
 
     return (
         <form className={classes.root} noValidate autoComplete="off">
             <form className={classes.reciverInput} noValidate autoComplete="off">
                 <div>
-                    <AddReceiver newMessageReceiver={newMessageReceiver} handleReceiverChange={handleReceiverChange} users={users} />
+                    <AddReceiver newMessageReceiver={newMessageReceiver} handleReceiverChange={handleReceiverChange} />
                 </div>
             </form>
             <form className={classes.root} noValidate autoComplete="off">

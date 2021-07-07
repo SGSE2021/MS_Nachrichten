@@ -102,7 +102,7 @@ export default function PersistentDrawerLeft({loggedUser}) {
         </ListItem>
         <ListItem component="a" href="https://sgse2021.westeurope.cloudapp.azure.com/users/lecturers" button key={'Lehrende'}>
           <ListItemText primary={'Lehrende'} />
-        </ListItem>)
+        </ListItem>
       </div>
     }
   }

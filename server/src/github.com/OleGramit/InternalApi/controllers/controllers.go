@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/OleGramit/InternalApi/models"
 	"github.com/julienschmidt/httprouter"
@@ -21,7 +22,8 @@ var MessageStubLen int = 10
 
 type (
 	UserController struct {
-		client *http.Client
+		client  *http.Client
+		restApi string
 	}
 )
 
@@ -32,7 +34,12 @@ type (
 )
 
 func NewUserController(client *http.Client) *UserController {
-	return &UserController{client}
+	// if local
+	userRestUrl, ok := os.LookupEnv("USER_REST_URL")
+	if !ok {
+		userRestUrl = "http://localhost:8181/"
+	}
+	return &UserController{client, userRestUrl}
 }
 
 func NewMessageController(session *mgo.Session) *MessageController {
@@ -157,7 +164,7 @@ func NewMessageController(session *mgo.Session) *MessageController {
 
 // GET Users
 func (uc UserController) GetUsersLecturers(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-	resp, err := uc.client.Get("https://sgse2021.westeurope.cloudapp.azure.com/users-api/lecturers")
+	resp, err := uc.client.Get(uc.restApi + "lecturers")
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -184,7 +191,7 @@ func (uc UserController) GetUsersLecturers(w http.ResponseWriter, r *http.Reques
 func (uc UserController) GetUsersLecturerById(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	id := p.ByName("id")
 
-	resp, err := uc.client.Get("https://sgse2021.westeurope.cloudapp.azure.com/users-api/lecturers/" + id)
+	resp, err := uc.client.Get(uc.restApi + "lecturers/" + id)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -209,7 +216,7 @@ func (uc UserController) GetUsersLecturerById(w http.ResponseWriter, r *http.Req
 }
 
 func (uc UserController) GetUsersStudents(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-	resp, err := uc.client.Get("https://sgse2021.westeurope.cloudapp.azure.com/users-api/students")
+	resp, err := uc.client.Get(uc.restApi + "students")
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -236,7 +243,59 @@ func (uc UserController) GetUsersStudents(w http.ResponseWriter, r *http.Request
 func (uc UserController) GetUsersStudentById(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	id := p.ByName("id")
 
-	resp, err := uc.client.Get("https://sgse2021.westeurope.cloudapp.azure.com/users-api/students/" + id)
+	resp, err := uc.client.Get(uc.restApi + "students/" + id)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	defer resp.Body.Close()
+	bodyBytes, _ := ioutil.ReadAll(resp.Body)
+
+	// Convert response body to Todo struct
+	var student models.Student
+	json.Unmarshal(bodyBytes, &student)
+
+	// Marshal provided interface into JSON structure
+	uj, _ := json.Marshal(student)
+
+	// Write content-type, statuscode, payload
+	// header := w.Header()
+	// header.Set("Content-Type", "application/json")
+	// header.Set("Access-Control-Allow-Methods", header.Get("Allow"))
+	// header.Set("Access-Control-Allow-Origin", "*")
+	w.WriteHeader(200)
+	fmt.Fprintf(w, "%s", uj)
+}
+
+func (uc UserController) GetUsersadministratives(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	resp, err := uc.client.Get(uc.restApi + "administratives")
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	defer resp.Body.Close()
+	bodyBytes, _ := ioutil.ReadAll(resp.Body)
+
+	// Convert response body to Todo struct
+	var lecturers []models.Student
+	json.Unmarshal(bodyBytes, &lecturers)
+
+	// Marshal provided interface into JSON structure
+	uj, _ := json.Marshal(lecturers)
+
+	// Write content-type, statuscode, payload
+	// header := w.Header()
+	// header.Set("Content-Type", "application/json")
+	// header.Set("Access-Control-Allow-Methods", header.Get("Allow"))
+	// header.Set("Access-Control-Allow-Origin", "*")
+	w.WriteHeader(200)
+	fmt.Fprintf(w, "%s", uj)
+}
+
+func (uc UserController) GetUsersadministrativesById(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	id := p.ByName("id")
+
+	resp, err := uc.client.Get(uc.restApi + "administratives/" + id)
 	if err != nil {
 		log.Fatalln(err)
 	}

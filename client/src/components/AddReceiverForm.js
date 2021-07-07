@@ -49,58 +49,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export const AddReceiverMessageForm = ({ onClose, users, newMessageReceiver, handleReceiverChange }) => {
+export const AddReceiverMessageForm = ({ onClose, newMessageReceiver, handleReceiverChange, filter, handleSelectionChange, getUsers, handleCheckboxChange, selectedUsers,isUserSelected }) => {
   const classes = useStyles();
-  const allUsers = users
-  const studyUsers = allUsers.filter(user => user.userType === 'Studierende')
-  const teachUsers = allUsers.filter(user => user.userType === 'Lehrende')
-  const adimUsers = allUsers.filter(user => user.userType === 'Administrative')
-
-  const [filter, setFilter] = React.useState('');
-  const [selectedUsers, setSelectedUsers] = React.useState([]);
+  // const allUsers = users
+  // const studyUsers = allUsers.filter(user => user.userType === 'Studierende')
+  // const teachUsers = allUsers.filter(user => user.userType === 'Lehrende')
+  // const adimUsers = allUsers.filter(user => user.userType === 'Administrative')
 
 
-  const handleSelectionChange = (event) => {
-    setFilter(event.target.value);
-  };
-
-  const handleCheckboxChange = (event, id) => {
-    const selectedIndex = selectedUsers.indexOf(id)
-    let newSelectedUsers = []
-
-    if (selectedIndex === -1) {
-      newSelectedUsers = newSelectedUsers.concat(selectedUsers, id);
-    } else if (selectedIndex === 0) {
-      newSelectedUsers = newSelectedUsers.concat(selectedUsers.slice(1));
-    } else if (selectedIndex === selectedUsers.length - 1) {
-      newSelectedUsers = newSelectedUsers.concat(selectedUsers.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelectedUsers = newSelectedUsers.concat(
-        selectedUsers.slice(0, selectedIndex),
-        selectedUsers.slice(selectedIndex + 1),
-      );
-    }
-    setSelectedUsers(newSelectedUsers);
-  };
-
-  const isUserSelected = (id) => selectedUsers.indexOf(id) !== -1;
-
-  function getUsers() {
-    if (filter === 10) {
-      return studyUsers
-    }
-    if (filter === 20) {
-      return teachUsers
-    }
-    if (filter === 30) {
-      return adimUsers
-    }
-    if (filter === 40) {
-      return allUsers
-    }
-    return allUsers
-    // return { name, course };
-  }
 
   return (
     <form className={classes.root} noValidate autoComplete="off" >
@@ -131,12 +87,12 @@ export const AddReceiverMessageForm = ({ onClose, users, newMessageReceiver, han
             </TableHead>
             <TableBody>
               {getUsers().map((row) => (
-                <TableRow key={row.name}
-                  onClick={(event) => handleCheckboxChange(event, row.id)}>
-                  <TableCell align="left">{row.firstName + row.lastName}</TableCell>
+                <TableRow key={row.id}>
+                  <TableCell align="left">{row.firstname + ' ' + row.lastname}</TableCell>
                   <TableCell align="left">
                     <Checkbox
-                      checked={isUserSelected(row.id)}
+                      defaultChecked={isUserSelected(row)}
+                      onChange={(event) => handleCheckboxChange(event, row)}
                     />
                   </TableCell>
                 </TableRow>

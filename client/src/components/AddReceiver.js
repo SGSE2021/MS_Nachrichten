@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -10,6 +10,7 @@ import TextField from '@material-ui/core/TextField';
 
 
 import AddReceiverForm from './AddReceiverForm'
+import { getAllAdministratives, getAllLecturers, getAllStudents } from './helper/GeUsers';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -39,22 +40,84 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const AddReceiver = ({users, newMessageReceiver, handleReceiverChange}) => {
+export const AddReceiver = ({ users, newMessageReceiver, handleReceiverChange }) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  const [students, setStudents] = React.useState([])
+  const [lecturers, setLecturers] = React.useState([])
+  const [admins, setAdmins] = React.useState([])
+  const [selectedUsers, setSelectedUsers] = React.useState([]);
+  const [receiverString, setReceiverString] = React.useState('')
+  const [filter, setFilter] = React.useState('');
 
-  const handleOpen = () => {
+
+  function getUsers() {
+    if (filter === 10) {
+      return students
+    }
+    if (filter === 20) {
+      return lecturers
+    }
+    if (filter === 30) {
+      return admins
+    }
+    return []
+  }
+
+  const handleSelectionChange = (event) => {
+    setFilter(event.target.value);
+  };
+
+  const handleCheckboxChange = (event, user) => {
+    let tempSelectedUsers = selectedUsers
+    let result = false
+    if (isUserSelected(user)) {
+      tempSelectedUsers.splice(tempSelectedUsers.indexOf(tempSelectedUsers.filter(item => (item.id === user.id))), 1)
+    }
+    else {
+      tempSelectedUsers.push(user)
+      result = true
+    }
+    setSelectedUsers(tempSelectedUsers)
+    return result
+  }
+
+  const isUserSelected = (user) => {
+    const result = selectedUsers.filter(element => (element.id === user.id)).length !== 0
+    return result
+  }
+
+  const handleOpen = async () => {
+    setStudents(await getAllStudents())
+    setLecturers(await getAllLecturers())
+    setAdmins(await getAllAdministratives())
     setOpen(true);
   };
 
   const handleClose = () => {
+    setReceiverString(getReceiverString())
     setOpen(false);
   };
+
+  // const getReceiver = () => {
+  //   return receiver
+  // }
 
   const getSender = () => {
     //TODO maybe in utils
     return "Test Horst"
   }
+
+  const getReceiverString = () => {
+    let tempRecString = ''
+    selectedUsers.map((row) => {
+      tempRecString += row.firstname + ' ' + row.lastname + '; '
+    })
+    return tempRecString
+  }
+
+  useEffect(() => {
+  }, [setStudents, setLecturers, setAdmins])
 
   return (
     <form className={classes.reciverInput} noValidate autoComplete="off">
@@ -64,7 +127,7 @@ export const AddReceiver = ({users, newMessageReceiver, handleReceiverChange}) =
           id="outlined-size-small"
           variant="outlined"
           size="small"
-          value={newMessageReceiver}
+          value={receiverString}
         />
         <Button
           variant="contained"
@@ -91,11 +154,17 @@ export const AddReceiver = ({users, newMessageReceiver, handleReceiverChange}) =
           <Fade in={open}>
             <div className={classes.paper}>
               <h2 id="receiver-message-modal-title">Empfänger Hinzufügen</h2>
-              <AddReceiverForm users={users} id="receiver-modal-description"
+              <AddReceiverForm students={students} lecturers={lecturers} id="receiver-modal-description"
                 sender={getSender()}
                 onClose={handleClose}
                 newMessageReceiver={newMessageReceiver}
-                handleReceiverChange={handleReceiverChange} />
+                handleReceiverChange={handleReceiverChange}
+                filter={filter}
+                handleSelectionChange={handleSelectionChange}
+                getUsers={getUsers}
+                handleCheckboxChange={handleCheckboxChange}
+                selectedUsers={selectedUsers}
+                isUserSelected={isUserSelected} />
             </div>
           </Fade>
         </Modal>
