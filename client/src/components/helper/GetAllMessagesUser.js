@@ -1,6 +1,6 @@
 import Env from '../Env'
 import axios from 'axios';
-import getUserById from './GeUsers';
+import getUserById from './GetUsers';
 
 export const getAllMessagesUser = async (id) => {
     try {

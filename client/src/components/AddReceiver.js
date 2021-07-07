@@ -10,7 +10,7 @@ import TextField from '@material-ui/core/TextField';
 
 
 import AddReceiverForm from './AddReceiverForm'
-import { getAllAdministratives, getAllLecturers, getAllStudents } from './helper/GeUsers';
+import { getAllAdministratives, getAllLecturers, getAllStudents } from './helper/GetUsers';
 
 
 const useStyles = makeStyles((theme) => ({

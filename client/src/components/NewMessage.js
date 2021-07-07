@@ -7,6 +7,7 @@ import Env from './Env'
 
 import axios from 'axios';
 import AddReceiver from './AddReceiver'
+import sendMessage from './helper/SendMessage'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -26,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function EmailInputTextField() {
+export default function EmailInputTextField({ loggedUser }) {
     const classes = useStyles();
 
     // Get all users
@@ -53,6 +54,19 @@ export default function EmailInputTextField() {
     const handleReceiverChange = (newReceiver) => {
         setMessageReceiver(newReceiver)
     }
+
+    const handleSendMessage = () => {
+        const messageReceiver = []
+        newMessageReceiver.map((rec) => {
+            messageReceiver.push(rec.id)
+        })
+        let newMessage = {
+            senderID: loggedUser.uid,
+            recipientIDs: messageReceiver,
+            body: newMessageBody
+        }
+        sendMessage(newMessage)
+    }   
 
     useEffect(() => {
         // getAllUsers()
@@ -84,6 +98,7 @@ export default function EmailInputTextField() {
                         color="primary"
                         className={classes.button}
                         endIcon={<Icon>send</Icon>}
+                        onClick={handleSendMessage}
                     >
                         Nachricht Senden
                     </Button>

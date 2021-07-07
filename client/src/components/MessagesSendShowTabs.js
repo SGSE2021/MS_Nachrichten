@@ -69,7 +69,7 @@ export default function MessagesSendShowTabs({loggedUser}) {
         <MessagesMain loggedUser={loggedUser} />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <NewMessage/>
+        <NewMessage loggedUser={loggedUser}/>
       </TabPanel>
     </div>
   );
