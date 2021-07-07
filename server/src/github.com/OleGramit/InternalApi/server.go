@@ -3,6 +3,7 @@ package main
 import (
 	"crypto/tls"
 	"fmt"
+	"log"
 	"net/http"
 	"os"
 
@@ -44,11 +45,21 @@ func getUserManagementSession() *http.Client {
 }
 
 func main() {
+	// If the file doesn't exist, create it or append to the file
+	file, err := os.OpenFile("logs.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	log.SetOutput(file)
+
 	// if local
 	ownRestUrl, ok := os.LookupEnv("OWN_REST_URL")
 	if !ok {
 		ownRestUrl = "localhost:8282"
 	}
+
+	log.Println("ownRestUrl:", ownRestUrl)
 
 	r := httprouter.New()
 	dbSession := getDBSession()

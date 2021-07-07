@@ -48,10 +48,14 @@ func NewMessageController(session *mgo.Session) *MessageController {
 
 // GET Users
 func (uc UserController) GetUsersLecturers(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	log.Println("GetUsersLecturers:")
+
+	log.Println("GetUsersLecturers_url:", uc.restApi+"lecturers")
 	resp, err := uc.client.Get(uc.restApi + "lecturers")
 	if err != nil {
 		log.Fatalln(err)
 	}
+	log.Println("GetUsersLecturers_resp:", resp)
 
 	defer resp.Body.Close()
 	bodyBytes, _ := ioutil.ReadAll(resp.Body)
@@ -62,6 +66,8 @@ func (uc UserController) GetUsersLecturers(w http.ResponseWriter, r *http.Reques
 
 	// Marshal provided interface into JSON structure
 	uj, _ := json.Marshal(lecturers)
+
+	log.Println("GetUsersLecturers_resp:", uj)
 
 	w.WriteHeader(200)
 	fmt.Fprintf(w, "%s", uj)
@@ -191,10 +197,15 @@ func (mc MessageController) GetMessagesForUserId(w http.ResponseWriter, r *http.
 }
 
 func (mc MessageController) Test(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	log.Println("Test:")
+
 	messages := "Hello There!"
 	uj, _ := json.Marshal(messages)
+	log.Println("Test_uj:", uj)
 
 	w.WriteHeader(200)
+	log.Println("Test_w:", w)
+
 	fmt.Fprintf(w, "%s", uj)
 }
 
@@ -217,8 +228,6 @@ func (mc MessageController) AddMessage(w http.ResponseWriter, r *http.Request, p
 // DELETE Message
 func (mc MessageController) RemoveMessage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	id := p.ByName("id")
-
-	fmt.Println("DELETE:", id)
 
 	// Verify id is ObjectId, otherwise bail
 	if !bson.IsObjectIdHex(id) {
