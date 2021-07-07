@@ -2,6 +2,7 @@ package main
 
 import (
 	"crypto/tls"
+	"fmt"
 	"net/http"
 	"os"
 
@@ -22,9 +23,10 @@ func getDBSession() *mgo.Session {
 
 	// Connect to our local mongo
 	s, err := mgo.Dial(mongoDBUrl)
-
 	// Check if connection error, is mongo running?
 	if err != nil {
+		fmt.Println("DEEEEEBUG", err)
+
 		panic(err)
 	}
 	return s
@@ -45,7 +47,7 @@ func main() {
 	// if local
 	ownRestUrl, ok := os.LookupEnv("OWN_REST_URL")
 	if !ok {
-		ownRestUrl = "localhost:3333"
+		ownRestUrl = "localhost:8181"
 	}
 
 	r := httprouter.New()
