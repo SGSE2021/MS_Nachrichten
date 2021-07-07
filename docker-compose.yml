@@ -1,15 +1,13 @@
 version: '3'
 
 services:
-#   backend:
-#     env_file:
-#         "./backend/backend.env"
-#     build:
-#       context: ./backend
-#       dockerfile: ./Dockerfile
-#     image: "dmurphy1217/twitter-sentiment-backend"
-#     ports:
-#       - "3000:3000"
+  # backend:
+  #   build:
+  #     context: ./server/src/github.com/OleGramit/InternalApi/Dockerfile
+  #     dockerfile: ./Dockerfile
+  #   image: "sgse2021/ms_nachrichten-backend"
+  #   ports:
+  #     - "8181:8181"
   frontend:
     build:
       context: ./client

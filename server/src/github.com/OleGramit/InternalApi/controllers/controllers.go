@@ -46,122 +46,6 @@ func NewMessageController(session *mgo.Session) *MessageController {
 	return &MessageController{session}
 }
 
-// ************************************************
-// TODO: REMOVE
-// ************************************************
-
-// helper
-// func getCourses() []string {
-// 	allCourses := []string{
-// 		"Test_Course_01",
-// 		"Test_Course_02",
-// 		"Test_Course_03",
-// 		"Test_Course_04",
-// 		"Test_Course_05",
-// 	}
-// 	tempCourses := make([]string, 0)
-// 	if rand.Intn(10)%2 == 0 {
-// 		tempCourses = append(tempCourses, allCourses[2])
-// 	}
-// 	if rand.Intn(10)%3 == 0 {
-// 		tempCourses = append(tempCourses, allCourses[3])
-// 	}
-// 	tempCourses = append(tempCourses, allCourses[0])
-// 	return tempCourses
-// }
-
-// func createMessage(messageId int) models.Message {
-// 	tempRecipientIds := make([]string, 0)
-// 	for i := 0; i < rand.Intn(10); i++ {
-// 		tempRecipientIds = append(tempRecipientIds, fmt.Sprintf("Recipient Name %d", i))
-// 	}
-
-// 	tempMessage := "Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper	eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim neque volutpatac tincidunt. Ornare suspendisse sed nisi lacus sed viverra tellus."
-
-// 	return models.Message{
-// 		MessageID:      fmt.Sprintf("ID_%d", messageId),
-// 		SenderName:     fmt.Sprintf("Sender Name %d", rand.Intn(10)),
-// 		RecipientNames: tempRecipientIds,
-// 		MessageBody:    tempMessage,
-// 		IsRead:         rand.Intn(1),
-// 	}
-// }
-
-// func randomUserType() string {
-// 	randInt := rand.Intn(2)
-// 	if randInt == 0 {
-// 		return "Studierende"
-// 	}
-// 	if randInt == 0 {
-// 		return "Lehrende"
-// 	}
-// 	return "Administrative"
-// }
-
-// func createUsers() []models.User {
-// 	tempUsers := make([]models.User, 0)
-
-// 	for i := 0; i < 20; i++ {
-// 		tempUsers = append(tempUsers, models.User{
-// 			Name:      fmt.Sprintf("Name_%d", i),
-// 			FirstName: fmt.Sprintf("FirstName_%d", i),
-// 			UserID:    bson.NewObjectId(),
-// 			UserType:  randomUserType(),
-// 			Curses:    getCourses(),
-// 		})
-
-// 	}
-// 	return tempUsers
-// }
-
-// List of all Users Stub
-// func getAllUsers() models.Users {
-// 	return models.Users{
-// 		Users: UserStub,
-// 	}
-// }
-
-// func getUserById(userId bson.ObjectId) models.User {
-// 	for i := 0; i <= len(UserStub); i++ {
-// 		if UserStub[i].UserID == userId {
-// 			return UserStub[i]
-// 		}
-// 	}
-// 	return UserStub[0]
-// }
-
-// List of all messages stub
-// func CreateMessagesStub(numberOfMessages int) []models.Message {
-// 	tempMessages := make([]models.Message, 0)
-// 	for i := 0; i < numberOfMessages; i++ {
-// 		tempMessages = append(tempMessages, createMessage(i))
-// 	}
-// 	return tempMessages
-// }
-
-// func removeMessageById(messageId string) bool {
-// 	for i := 0; i <= len(MessagesStub); i++ {
-// 		if MessagesStub[i].MessageID == messageId {
-// 			MessagesStub[i] = MessagesStub[len(MessagesStub)-1]
-// 			return true
-// 		}
-// 	}
-// 	return false
-// }
-
-// func getMessageById(messageId string) models.Message {
-// 	for i := 0; i <= len(MessagesStub); i++ {
-// 		if MessagesStub[i].MessageID == messageId {
-// 			return MessagesStub[i]
-// 		}
-// 	}
-// 	return createMessage(0)
-// }
-
-// ************************************************
-// TODO: REMOVE
-// ************************************************
-
 // GET Users
 func (uc UserController) GetUsersLecturers(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	resp, err := uc.client.Get(uc.restApi + "lecturers")
@@ -179,11 +63,6 @@ func (uc UserController) GetUsersLecturers(w http.ResponseWriter, r *http.Reques
 	// Marshal provided interface into JSON structure
 	uj, _ := json.Marshal(lecturers)
 
-	// Write content-type, statuscode, payload
-	// header := w.Header()
-	// header.Set("Content-Type", "application/json")
-	// header.Set("Access-Control-Allow-Methods", header.Get("Allow"))
-	// header.Set("Access-Control-Allow-Origin", "*")
 	w.WriteHeader(200)
 	fmt.Fprintf(w, "%s", uj)
 }
@@ -206,11 +85,6 @@ func (uc UserController) GetUsersLecturerById(w http.ResponseWriter, r *http.Req
 	// Marshal provided interface into JSON structure
 	uj, _ := json.Marshal(lecturer)
 
-	// Write content-type, statuscode, payload
-	// header := w.Header()
-	// header.Set("Content-Type", "application/json")
-	// header.Set("Access-Control-Allow-Methods", header.Get("Allow"))
-	// header.Set("Access-Control-Allow-Origin", "*")
 	w.WriteHeader(200)
 	fmt.Fprintf(w, "%s", uj)
 }
@@ -231,11 +105,6 @@ func (uc UserController) GetUsersStudents(w http.ResponseWriter, r *http.Request
 	// Marshal provided interface into JSON structure
 	uj, _ := json.Marshal(lecturers)
 
-	// Write content-type, statuscode, payload
-	// header := w.Header()
-	// header.Set("Content-Type", "application/json")
-	// header.Set("Access-Control-Allow-Methods", header.Get("Allow"))
-	// header.Set("Access-Control-Allow-Origin", "*")
 	w.WriteHeader(200)
 	fmt.Fprintf(w, "%s", uj)
 }
@@ -258,11 +127,6 @@ func (uc UserController) GetUsersStudentById(w http.ResponseWriter, r *http.Requ
 	// Marshal provided interface into JSON structure
 	uj, _ := json.Marshal(student)
 
-	// Write content-type, statuscode, payload
-	// header := w.Header()
-	// header.Set("Content-Type", "application/json")
-	// header.Set("Access-Control-Allow-Methods", header.Get("Allow"))
-	// header.Set("Access-Control-Allow-Origin", "*")
 	w.WriteHeader(200)
 	fmt.Fprintf(w, "%s", uj)
 }
@@ -283,11 +147,6 @@ func (uc UserController) GetUsersadministratives(w http.ResponseWriter, r *http.
 	// Marshal provided interface into JSON structure
 	uj, _ := json.Marshal(lecturers)
 
-	// Write content-type, statuscode, payload
-	// header := w.Header()
-	// header.Set("Content-Type", "application/json")
-	// header.Set("Access-Control-Allow-Methods", header.Get("Allow"))
-	// header.Set("Access-Control-Allow-Origin", "*")
 	w.WriteHeader(200)
 	fmt.Fprintf(w, "%s", uj)
 }
@@ -310,11 +169,6 @@ func (uc UserController) GetUsersadministrativesById(w http.ResponseWriter, r *h
 	// Marshal provided interface into JSON structure
 	uj, _ := json.Marshal(student)
 
-	// Write content-type, statuscode, payload
-	// header := w.Header()
-	// header.Set("Content-Type", "application/json")
-	// header.Set("Access-Control-Allow-Methods", header.Get("Allow"))
-	// header.Set("Access-Control-Allow-Origin", "*")
 	w.WriteHeader(200)
 	fmt.Fprintf(w, "%s", uj)
 }
@@ -332,10 +186,6 @@ func (mc MessageController) GetMessagesForUserId(w http.ResponseWriter, r *http.
 	}
 	uj, _ := json.Marshal(messages)
 
-	// header := w.Header()
-	// header.Set("Content-Type", "application/json")
-	// header.Set("Access-Control-Allow-Methods", header.Get("Allow"))
-	// header.Set("Access-Control-Allow-Origin", "*")
 	w.WriteHeader(200)
 	fmt.Fprintf(w, "%s", uj)
 }
@@ -352,48 +202,11 @@ func (mc MessageController) AddMessage(w http.ResponseWriter, r *http.Request, p
 
 	uj, _ := json.Marshal(message)
 
-	// header := w.Header()
-	// header.Set("Content-Type", "application/json")
-	// header.Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
-	// header.Set("Access-Control-Allow-Origin", "*")
 	w.WriteHeader(201)
 	fmt.Fprintf(w, "%s", uj)
 }
 
-//PUT Message
-// func (mc MessageController) UpdateMessage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-// 	fmt.Println("PUT: ")
-// 	id := p.ByName("id")
-// 	fmt.Println("PUT: ", id)
-// 	if !bson.IsObjectIdHex(id) {
-// 		w.WriteHeader(404)
-// 		return
-// 	}
-// 	oid := bson.ObjectIdHex(id)
-
-// 	message := models.Message{}
-
-// 	json.NewDecoder(r.Body).Decode(&message)
-
-// 	mc.session.DB("MS_Nachrichten_DB").C("messages").UpdateId(oid, message)
-
-// 	uj, _ := json.Marshal(message)
-
-// 	header := w.Header()
-// 	// header.Set("Content-Type", "application/json")
-// 	// header.Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
-// 	// header.Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
-// 	// header.Set("Access-Control-Request-Headers", "*")
-// 	// header.Set("Access-Control-Allow-Origin", "*")
-// 	header.Set("Content-Type", "application/json")
-// 	header.Set("Access-Control-Allow-Methods", header.Get("Allow"))
-// 	header.Set("Access-Control-Allow-Origin", "*")
-// 	w.WriteHeader(201)
-// 	fmt.Fprintf(w, "%s", uj)
-// 	fmt.Println("PUT END")
-// }
-
-// // DELETE Message
+// DELETE Message
 func (mc MessageController) RemoveMessage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	id := p.ByName("id")
 
@@ -413,9 +226,5 @@ func (mc MessageController) RemoveMessage(w http.ResponseWriter, r *http.Request
 		return
 	}
 
-	// header := w.Header()
-	// header.Set("Content-Type", "application/json")
-	// header.Set("Access-Control-Allow-Methods", header.Get("Allow"))
-	// header.Set("Access-Control-Allow-Origin", "*")
 	w.WriteHeader(200)
 }

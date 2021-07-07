@@ -14,7 +14,7 @@ WORKDIR /app
 RUN go mod download
 
 # compile the binary
-RUN go build -o main .
+RUN go build -o server .
 
 # start command for binary executable
-CMD ["/app/main"]
+CMD ["/app/server"]
