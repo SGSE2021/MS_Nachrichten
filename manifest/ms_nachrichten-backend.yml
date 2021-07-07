@@ -18,7 +18,7 @@ spec:
       - name: nachrichten-backend
         image: sgse2021containerregistry.azurecr.io/ms_nachrichten-backend:latest
         ports:
-        - containerPort: 8282
+        - containerPort: 8080
         
 --- 
 apiVersion: v1
@@ -27,6 +27,6 @@ metadata:
   name: nachrichten-backend
 spec:
   ports:
-  - port: 8282
+  - port: 8080
   selector:
     app: nachrichten-backend
