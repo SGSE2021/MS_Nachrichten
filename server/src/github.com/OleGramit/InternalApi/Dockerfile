@@ -13,7 +13,7 @@ WORKDIR /app
 # pull in dependencies
 RUN go mod download
 
-ENV OWN_REST_URL=localhost:8181
+ENV OWN_REST_URL=http://nachrichten-backend.microservices.svc.cluster.local:8181/
 
 ENV USER_REST_URL=http://userverwaltung.microservices.svc.cluster.local:8181/
 # ENV USER_REST_URL=https://sgse2021.westeurope.cloudapp.azure.com/api/users/
