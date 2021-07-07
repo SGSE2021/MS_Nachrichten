@@ -106,8 +106,8 @@ func main() {
 	}
 	handler := cors.New(_cors).Handler(r)
 
-	// http.ListenAndServeTLS(ownRestUrl, "server.crt", "server.key", handler)
-	http.ListenAndServe(":8080", handler)
+	http.ListenAndServeTLS(ownRestUrl, "server.crt", "server.key", handler)
+	// http.ListenAndServe(":8080", handler)
 
 	log.Println("END OF STORY")
 }
