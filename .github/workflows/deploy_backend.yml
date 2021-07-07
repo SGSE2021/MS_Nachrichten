@@ -10,10 +10,10 @@ on:
  
     
 env:
-  IMAGE_NAME: ms_nachrichten_backend
-  SERVICE_NAME: nachrichten_backend
+  IMAGE_NAME: ms_nachrichten-backend
+  SERVICE_NAME: nachrichten-backend
   DOCKERFILE: ./server/src/github.com/OleGramit/InternalApi/Dockerfile
-  MANIFESTFILE: manifest/ms_nachrichten_backend.yml
+  MANIFESTFILE: manifest/ms_nachrichten-backend.yml
 
 jobs:
   build:
