@@ -26,6 +26,6 @@ metadata:
   name: nachrichten
 spec:
   ports:
-  - port: 3000
+  - port: 8181
   selector:
     app: nachrichten
