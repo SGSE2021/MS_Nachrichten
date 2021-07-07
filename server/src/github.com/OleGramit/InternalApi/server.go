@@ -56,7 +56,7 @@ func main() {
 	// if local
 	ownRestUrl, ok := os.LookupEnv("OWN_REST_URL")
 	if !ok {
-		ownRestUrl = "localhost:8282"
+		ownRestUrl = "localhost:8080"
 	}
 
 	log.Println("ownRestUrl:", ownRestUrl)
@@ -107,7 +107,7 @@ func main() {
 	handler := cors.New(_cors).Handler(r)
 
 	// http.ListenAndServeTLS(ownRestUrl, "server.crt", "server.key", handler)
-	http.ListenAndServe(ownRestUrl, handler)
+	http.ListenAndServe(":8080", handler)
 
 	log.Println("END OF STORY")
 }
