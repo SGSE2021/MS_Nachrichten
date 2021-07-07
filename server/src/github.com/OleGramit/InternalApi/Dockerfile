@@ -21,9 +21,7 @@ ENV USER_REST_URL=http://userverwaltung.microservices.svc.cluster.local:8181/
 ENV MOGODB_URL=mongodb://messagedb-user:v60TJstCeL@messages-mongodb.support.svc.cluster.local:27017/messagedb
 # ENV MOGODB_URL=mongodb://localhost
 
-EXPOSE 8181
 EXPOSE 8282
-EXPOSE 27017
 
 # compile the binary
 RUN go build -o server .
