@@ -16,7 +16,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import SchoolIcon from '@material-ui/icons/School';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import { BrowserRouter as Router } from 'react-router-dom'
+import { BrowserRouter as Router, Redirect } from 'react-router-dom'
 
 
 import MessagesSendShowTabs from './MessagesSendShowTabs'
@@ -81,7 +81,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PersistentDrawerLeft({loggedUser}) {
+export default function PersistentDrawerLeft({ loggedUser }) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -105,6 +105,14 @@ export default function PersistentDrawerLeft({loggedUser}) {
         </ListItem>
       </div>
     }
+  }
+
+  if (loggedUser === null) {
+    return (
+      <Router>
+        <Redirect to="/users/" />
+      </Router>
+    )
   }
 
   return (
@@ -197,7 +205,7 @@ export default function PersistentDrawerLeft({loggedUser}) {
         })}
       >
         <div className={classes.drawerHeader} />
-        <MessagesSendShowTabs loggedUser={loggedUser}/>
+        <MessagesSendShowTabs loggedUser={loggedUser} />
       </main>
     </div>
   );
