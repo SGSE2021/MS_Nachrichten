@@ -16,10 +16,6 @@ import (
 
 var MessageStubLen int = 10
 
-// var MessagesStub []models.Message = CreateMessagesStub(MessageStubLen)
-
-// var UserStub []models.User = createUsers()
-
 type (
 	UserController struct {
 		client  *http.Client
