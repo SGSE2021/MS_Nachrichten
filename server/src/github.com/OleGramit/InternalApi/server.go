@@ -80,13 +80,13 @@ func main() {
 
 	r.GET("/users/administratives/:id", userContr.GetUsersadministrativesById)
 
-	r.GET("/messages/:id", messageContr.GetMessagesForUserId)
+	r.GET("/message/:id", messageContr.GetMessagesForUserId)
 
 	r.GET("/test", messageContr.Test)
 
-	r.POST("/messages", messageContr.AddMessage)
+	r.POST("/message", messageContr.AddMessage)
 
-	r.DELETE("/messages/:id", messageContr.RemoveMessage)
+	r.DELETE("/message/:id", messageContr.RemoveMessage)
 
 	// r.GlobalOPTIONS = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 	// 	if r.Header.Get("Access-Control-Request-Method") != "" {
