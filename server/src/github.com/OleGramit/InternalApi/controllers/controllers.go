@@ -185,7 +185,7 @@ func (mc MessageController) GetMessagesForUserId(w http.ResponseWriter, r *http.
 	if err := mc.session.DB("MS_Nachrichten_DB").C("messages").Find(bson.D{{"recipientIDs", id}}).All(&messages); err != nil {
 		// w.WriteHeader(404)
 		w.WriteHeader(200)
-		fmt.Fprintf(w, "%s", id)
+		fmt.Fprintf(w, "%s", err)
 		return
 	}
 	uj, _ := json.Marshal(messages)
