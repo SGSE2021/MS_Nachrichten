@@ -5,9 +5,8 @@ import getUserById from './GetUsers';
 export const getAllMessagesUser = async (id) => {
     let messages=[]
     try {
-        // URL + /API/messages
-        console.log(Env.BACK_URL + '/messages/' + id)
-        messages = await axios.get(Env.BACK_URL + '/messages/' + id)
+        // URL + /API/message
+        messages = await axios.get(Env.BACK_URL + '/message/' + id)
         messages = messages.data
     } catch (error) {
         // TODO
