@@ -144,7 +144,7 @@ func (uc UserController) GetUsersadministratives(w http.ResponseWriter, r *http.
 	bodyBytes, _ := ioutil.ReadAll(resp.Body)
 
 	// Convert response body to Todo struct
-	var lecturers []models.Student
+	var lecturers []models.Lecturer
 	json.Unmarshal(bodyBytes, &lecturers)
 
 	// Marshal provided interface into JSON structure
@@ -166,7 +166,7 @@ func (uc UserController) GetUsersadministrativesById(w http.ResponseWriter, r *h
 	bodyBytes, _ := ioutil.ReadAll(resp.Body)
 
 	// Convert response body to Todo struct
-	var student models.Student
+	var student models.Lecturer
 	json.Unmarshal(bodyBytes, &student)
 
 	// Marshal provided interface into JSON structure

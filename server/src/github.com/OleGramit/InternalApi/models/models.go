@@ -11,6 +11,7 @@ type (
 		UserID              string `json:"id"`
 		Active              bool   `json:"active"`
 		FirstName           string `json:"firstname"`
+		LastName            string `json:"lastname"`
 		MatriculationNumber string `json:"matriculationNumber"`
 		Course              Course `json:"course"`
 		Birthdate           string `json:"birthdate"`
