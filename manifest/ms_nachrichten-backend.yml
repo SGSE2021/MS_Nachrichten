@@ -17,7 +17,7 @@ spec:
       containers:
       - name: nachrichten-backend
         image: sgse2021cr.azurecr.io/ms_nachrichten-backend:latest
-      env: 
+        env: 
         - name: DATABASE_DNS
           valueFrom: 
             secretKeyRef: 
