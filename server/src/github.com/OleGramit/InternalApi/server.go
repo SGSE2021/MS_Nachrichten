@@ -2,7 +2,6 @@ package main
 
 import (
 	"crypto/tls"
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -15,10 +14,11 @@ import (
 )
 
 func getDBSession() *mgo.Session {
-	mongoDBUrl, ok := os.LookupEnv("MOGODB_URL")
+	mongoDBUrl, ok := os.LookupEnv("DATABASE_URL")
 
 	// if local
 	if !ok {
+		log.Println("DATABASE_URL NOT FOUND")
 		mongoDBUrl = "mongodb://localhost"
 	}
 
@@ -26,8 +26,7 @@ func getDBSession() *mgo.Session {
 	s, err := mgo.Dial(mongoDBUrl)
 	// Check if connection error, is mongo running?
 	if err != nil {
-		fmt.Println("DEEEEEBUG", err)
-
+		log.Println("DB ERROR CONNECTION NOT POSSIBLE", err)
 		panic(err)
 	}
 	return s
