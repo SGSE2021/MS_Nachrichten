@@ -29,23 +29,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function EmailInputTextField({ loggedUser }) {
     const classes = useStyles();
-
-    // Get all users
-    // const [users, setUsers] = useState([]);
     const [newMessageBody, setMessageBody] = useState()
     const [newMessageReceiver, setMessageReceiver] = useState([])
-
-    // async function getAllUsers() {
-    //     try {
-    //         const users = await axios.get(Env.BACK_URL +'/users')
-    //         console.log(users)
-    //         setUsers(users.data.users)
-
-    //     } catch (error) {
-    //         // TODO
-    //         console.error(error);
-    //     }
-    // }
 
     const handleMessageTextChange = (event) => {
         setMessageBody(event.target.value)
@@ -66,6 +51,8 @@ export default function EmailInputTextField({ loggedUser }) {
             body: newMessageBody
         }
         sendMessage(newMessage)
+        setMessageBody('')
+        setMessageReceiver([])
     }   
 
     useEffect(() => {
