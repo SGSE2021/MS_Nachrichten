@@ -21,8 +21,6 @@ export const getAllMessagesUser = async (id) => {
             // TODO
             console.error(error);
         }
-        const user = await getUserById(messages[i].senderID)
-        messages[i].senderName = user.data.firstname + " " + user.data.lastname
     }
     return (messages)
 
