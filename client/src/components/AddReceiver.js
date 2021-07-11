@@ -69,12 +69,15 @@ export const AddReceiver = ({ loggedUser, newMessageReceiver, handleReceiverChan
     if (filter === 40) {
       const courseId = loggedInfo.data.course.id
       const studentsInCourse = students.filter((student) => student.course.id === courseId)
-      console.log("TEEEEEEST: ", studentsInCourse)
       return studentsInCourse
     }
     // Fachbereich
     if (filter === 50) {
-      return lecturers
+      const departmentId = loggedInfo.data.course.id
+      const lecturersInDepartment = lecturers.filter((lecturers) => lecturers.departmentId.departmentId === departmentId)
+      const studentsInDepartment = students.filter((student) => student.course.id === departmentId)
+      const usersInDepartment = studentsInDepartment.concat(lecturersInDepartment)
+      return usersInDepartment
     }
     // Alle
     if (filter === 60) {
