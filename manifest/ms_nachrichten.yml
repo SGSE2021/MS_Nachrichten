@@ -16,7 +16,7 @@ spec:
         "beta.kubernetes.io/os": linux
       containers:
       - name: nachrichten
-        image: sgse2021containerregistry.azurecr.io/ms_nachrichten:latest
+        image: sgse2021cr.azurecr.io/ms_nachrichten:latest
         ports:
         - containerPort: 3000 
 --- 

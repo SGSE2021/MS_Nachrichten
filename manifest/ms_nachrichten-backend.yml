@@ -16,7 +16,7 @@ spec:
         "beta.kubernetes.io/os": linux
       containers:
       - name: nachrichten-backend
-        image: sgse2021containerregistry.azurecr.io/ms_nachrichten-backend:latest
+        image: sgse2021cr.azurecr.io/ms_nachrichten-backend:latest
         ports:
         - containerPort: 8080
         

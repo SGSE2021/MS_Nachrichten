@@ -97,10 +97,10 @@ export default function PersistentDrawerLeft({ loggedUser }) {
   const renderAdminUserItems = (role) => {
     if (role === 2) {
       return <div>
-        <ListItem component="a" href="https://sgse2021.westeurope.cloudapp.azure.com/users/students" button key={'Studierende'}>
+        <ListItem component="a" href="https://sgse2021-ilias.westeurope.cloudapp.azure.com/users/students" button key={'Studierende'}>
           <ListItemText primary={'Studierende'} />
         </ListItem>
-        <ListItem component="a" href="https://sgse2021.westeurope.cloudapp.azure.com/users/lecturers" button key={'Lehrende'}>
+        <ListItem component="a" href="https://sgse2021-ilias.westeurope.cloudapp.azure.com/users/lecturers" button key={'Lehrende'}>
           <ListItemText primary={'Lehrende'} />
         </ListItem>
       </div>
@@ -140,7 +140,7 @@ export default function PersistentDrawerLeft({ loggedUser }) {
           <div>
             <IconButton
               component="a"
-              href="https://sgse2021.westeurope.cloudapp.azure.com/users/settings"
+              href="https://sgse2021-ilias.westeurope.cloudapp.azure.com/users/settings"
             >
               <AccountCircleIcon fontSize="large" />
             </IconButton>
@@ -174,25 +174,25 @@ export default function PersistentDrawerLeft({ loggedUser }) {
         <Divider />
         <Router>
           <List>
-            <ListItem component="a" href="https://sgse2021.westeurope.cloudapp.azure.com/users/" button key={'Startseite'}>
+            <ListItem component="a" href="hhttps://sgse2021-ilias.westeurope.cloudapp.azure.com/users/" button key={'Startseite'}>
               <ListItemText primary={'Startseite'} />
             </ListItem>
-            <ListItem component="a" href="https://sgse2021.westeurope.cloudapp.azure.com/messages/" button key={'Nachrichten'}>
+            <ListItem component="a" href="https://sgse2021-ilias.westeurope.cloudapp.azure.com/messages/" button key={'Nachrichten'}>
               <ListItemText primary={'Nachrichten'} />
             </ListItem>
-            <ListItem component="a" href="https://sgse2021.westeurope.cloudapp.azure.com/courses/" button key={'Kurse'}>
+            <ListItem component="a" href="https://sgse2021-ilias.westeurope.cloudapp.azure.com/courses/" button key={'Kurse'}>
               <ListItemText primary={'Kurse'} />
             </ListItem>
-            <ListItem component="a" href="https://sgse2021.westeurope.cloudapp.azure.com/exams/" button key={'Prüfungen'}>
+            <ListItem component="a" href="https://sgse2021-ilias.westeurope.cloudapp.azure.com/exams/" button key={'Prüfungen'}>
               <ListItemText primary={'Prüfungen'} />
             </ListItem>
             {
               renderAdminUserItems(loggedUser.role)
             }
-            <ListItem component="a" href="https://www.ecosia.org/" button key={'Raumbelegung'}>
+            <ListItem component="a" href="https://sgse2021-ilias.westeurope.cloudapp.azure.com/users/" button key={'Raumbelegung'}>
               <ListItemText primary={'Raumbelegung'} />
             </ListItem>
-            <ListItem component="a" href="https://www.ecosia.org/" button key={'Ausloggen'}>
+            <ListItem component="a" href="https://sgse2021-ilias.westeurope.cloudapp.azure.com/users/login/" button key={'Ausloggen'}>
               <ListItemText primary={'Ausloggen'} />
             </ListItem>
           </List>

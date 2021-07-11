@@ -102,7 +102,7 @@ func main() {
 
 	_cors := cors.Options{
 		AllowedMethods: []string{"POST", "GET", "DELETE", "OPTIONS"},
-		AllowedOrigins: []string{"http://localhost:3000", "https://sgse2021.westeurope.cloudapp.azure.com"},
+		AllowedOrigins: []string{"http://localhost:3000", "https://sgse2021-ilias.westeurope.cloudapp.azure.com"},
 	}
 	handler := cors.New(_cors).Handler(r)
 
