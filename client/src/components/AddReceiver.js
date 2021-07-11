@@ -81,7 +81,7 @@ export const AddReceiver = ({ loggedUser, newMessageReceiver, handleReceiverChan
     }
     // Alle
     if (filter === 60) {
-      return admins
+      return students.concat(lecturers, admins)
     }
     return []
   }
