@@ -1,11 +1,11 @@
 FROM node:16-alpine3.11 as builder
 WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
-COPY client/package.json ./
-COPY client/package-lock.json ./
+COPY ./package.json ./
+COPY ./package-lock.json ./
 RUN npm ci --silent
 RUN npm install react-scripts@4.0.3 -g --silent
-COPY client/ ./
+COPY . ./
 RUN npm run build
 
 # production environment
