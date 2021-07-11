@@ -51,51 +51,6 @@ const useStyles = makeStyles((theme) => ({
 
 export const AddReceiverMessageForm = ({ loggedUser, onClose, newMessageReceiver, handleReceiverChange, filter, handleSelectionChange, getUsers, handleCheckboxChange, selectedUsers, isUserSelected }) => {
   const classes = useStyles();
-  // const allUsers = users
-  // const studyUsers = allUsers.filter(user => user.userType === 'Studierende')
-  // const teachUsers = allUsers.filter(user => user.userType === 'Lehrende')
-  // const adimUsers = allUsers.filter(user => user.userType === 'Administrative')
-
-  const getFilterItems = () => {
-    //students
-    if (loggedUser.role === 1) {
-      return (
-        <div>
-          <MenuItem value={10}>Studierende</MenuItem>
-          <MenuItem value={20}>Lehrende</MenuItem>
-          <MenuItem value={30}>Andimistrative</MenuItem>
-          <MenuItem value={40}>Studiengang</MenuItem>
-        </div>
-      )
-    }
-    // admins
-    else if (loggedUser.role === 2) {
-      return (
-        <div>
-          <MenuItem value={10}>Studierende</MenuItem>
-          <MenuItem value={20}>Lehrende</MenuItem>
-          <MenuItem value={30}>Andimistrative</MenuItem>
-          <MenuItem value={40}>Studiengang</MenuItem>
-          <MenuItem value={50}>Fachbereich</MenuItem>
-          <MenuItem value={60}>Alle</MenuItem>
-        </div>
-      )
-    }
-    //lecturers
-    else if (loggedUser.role === 3) {
-      return (
-        <div>
-          <MenuItem value={10}>Studierende</MenuItem>
-          <MenuItem value={20}>Lehrende</MenuItem>
-          <MenuItem value={30}>Andimistrative</MenuItem>
-          <MenuItem value={50}>Fachbereich</MenuItem>
-        </div>
-      )
-    }
-
-
-  }
-
 
   return (
     <form className={classes.root} noValidate autoComplete="off" >
@@ -125,8 +80,6 @@ export const AddReceiverMessageForm = ({ loggedUser, onClose, newMessageReceiver
               <MenuItem value={10}>Studierende</MenuItem>
               <MenuItem value={20}>Lehrende</MenuItem>
               <MenuItem value={30}>Andimistrative</MenuItem>
-              <MenuItem value={40}>Studiengang</MenuItem>
-              <MenuItem value={50}>Fachbereich</MenuItem>
               <MenuItem value={60}>Alle</MenuItem>
             </Select>
           }

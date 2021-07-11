@@ -73,9 +73,11 @@ export const AddReceiver = ({ loggedUser, newMessageReceiver, handleReceiverChan
     }
     // Fachbereich
     if (filter === 50) {
-      const departmentId = loggedInfo.data.course.id
-      const lecturersInDepartment = lecturers.filter((lecturers) => lecturers.departmentId.departmentId === departmentId)
-      const studentsInDepartment = students.filter((student) => student.course.id === departmentId)
+      const departmentId = loggedInfo.data.departmentId
+      const lecturersInDepartment = lecturers.filter((lecturers) => lecturers.departmentId === departmentId)
+      const studentsInDepartment = students.filter((student) => student.course.departmentId === departmentId)
+      console.log("TEST1",lecturersInDepartment)
+      console.log("TEST2",studentsInDepartment)
       const usersInDepartment = studentsInDepartment.concat(lecturersInDepartment)
       return usersInDepartment
     }
