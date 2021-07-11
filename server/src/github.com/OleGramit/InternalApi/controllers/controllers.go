@@ -26,6 +26,7 @@ type (
 type (
 	MessageController struct {
 		session *mgo.Session
+		dbName  string
 	}
 )
 
@@ -38,8 +39,8 @@ func NewUserController(client *http.Client) *UserController {
 	return &UserController{client, userRestUrl}
 }
 
-func NewMessageController(session *mgo.Session) *MessageController {
-	return &MessageController{session}
+func NewMessageController(session *mgo.Session, databaseName string) *MessageController {
+	return &MessageController{session, databaseName}
 }
 
 // GET Users
@@ -182,7 +183,7 @@ func (mc MessageController) GetMessagesForUserId(w http.ResponseWriter, r *http.
 	messages := []models.Message{}
 
 	// Fetch message db.getCollection("messages").find({"recipientIDs":"YGWRONITaNW3fwvTcxGjllop4fA2"}).pretty()
-	if err := mc.session.DB("MS_Nachrichten_DB").C("messages").Find(bson.D{{"recipientIDs", id}}).All(&messages); err != nil {
+	if err := mc.session.DB(mc.dbName).C("messages").Find(bson.D{{"recipientIDs", id}}).All(&messages); err != nil {
 		// w.WriteHeader(404)
 		//TODO REVERT
 		w.WriteHeader(200)
@@ -216,7 +217,7 @@ func (mc MessageController) AddMessage(w http.ResponseWriter, r *http.Request, p
 
 	message.MessageID = bson.NewObjectId()
 
-	mc.session.DB("MS_Nachrichten_DB").C("messages").Insert(message)
+	mc.session.DB(mc.dbName).C("messages").Insert(message)
 
 	uj, _ := json.Marshal(message)
 
@@ -237,7 +238,7 @@ func (mc MessageController) RemoveMessage(w http.ResponseWriter, r *http.Request
 	// Grab id
 	oid := bson.ObjectIdHex(id)
 
-	if err := mc.session.DB("MS_Nachrichten_DB").C("messages").RemoveId(oid); err != nil {
+	if err := mc.session.DB(mc.dbName).C("messages").RemoveId(oid); err != nil {
 		w.WriteHeader(404)
 		return
 	}

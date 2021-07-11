@@ -65,7 +65,15 @@ func main() {
 	userManagementClient := getUserManagementSession()
 
 	userContr := controllers.NewUserController(userManagementClient)
-	messageContr := controllers.NewMessageController(dbSession)
+
+	databaseName, ok := os.LookupEnv("DATABASE_NAME")
+	// if local
+	if !ok {
+		log.Println("DATABASE_NAME NOT FOUND")
+		databaseName = "MS_Nachrichten_DB"
+	}
+
+	messageContr := controllers.NewMessageController(dbSession, databaseName)
 
 	r.GET("/users/lecturers", userContr.GetUsersLecturers)
 
