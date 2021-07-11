@@ -49,31 +49,101 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export const AddReceiverMessageForm = ({ onClose, newMessageReceiver, handleReceiverChange, filter, handleSelectionChange, getUsers, handleCheckboxChange, selectedUsers,isUserSelected }) => {
+export const AddReceiverMessageForm = ({ loggedUser, onClose, newMessageReceiver, handleReceiverChange, filter, handleSelectionChange, getUsers, handleCheckboxChange, selectedUsers, isUserSelected }) => {
   const classes = useStyles();
   // const allUsers = users
   // const studyUsers = allUsers.filter(user => user.userType === 'Studierende')
   // const teachUsers = allUsers.filter(user => user.userType === 'Lehrende')
   // const adimUsers = allUsers.filter(user => user.userType === 'Administrative')
 
+  const getFilterItems = () => {
+    //students
+    if (loggedUser.role === 1) {
+      return (
+        <div>
+          <MenuItem value={10}>Studierende</MenuItem>
+          <MenuItem value={20}>Lehrende</MenuItem>
+          <MenuItem value={30}>Andimistrative</MenuItem>
+          <MenuItem value={40}>Studiengang</MenuItem>
+        </div>
+      )
+    }
+    // admins
+    else if (loggedUser.role === 2) {
+      return (
+        <div>
+          <MenuItem value={10}>Studierende</MenuItem>
+          <MenuItem value={20}>Lehrende</MenuItem>
+          <MenuItem value={30}>Andimistrative</MenuItem>
+          <MenuItem value={40}>Studiengang</MenuItem>
+          <MenuItem value={50}>Fachbereich</MenuItem>
+          <MenuItem value={60}>Alle</MenuItem>
+        </div>
+      )
+    }
+    //lecturers
+    else if (loggedUser.role === 3) {
+      return (
+        <div>
+          <MenuItem value={10}>Studierende</MenuItem>
+          <MenuItem value={20}>Lehrende</MenuItem>
+          <MenuItem value={30}>Andimistrative</MenuItem>
+          <MenuItem value={50}>Fachbereich</MenuItem>
+        </div>
+      )
+    }
+
+
+  }
 
 
   return (
     <form className={classes.root} noValidate autoComplete="off" >
       <div>
         <FormControl className={classes.formControl}>
-          <InputLabel id="simple-select-label">Benutzertyp</InputLabel>
-          <Select
-            labelId="simple-select-label"
-            id="simple-select"
-            value={filter}
-            onChange={handleSelectionChange}
-          >
-            <MenuItem value={10}>Studierende</MenuItem>
-            <MenuItem value={20}>Lehrende</MenuItem>
-            <MenuItem value={30}>Andimistrative</MenuItem>
-            <MenuItem value={40}>Alle</MenuItem>
-          </Select>
+          <InputLabel id="simple-select-label">Auswahl</InputLabel>
+          {(loggedUser.role === 1) &&
+            <Select
+              labelId="simple-select-label"
+              id="simple-select"
+              value={filter}
+              onChange={handleSelectionChange}
+            >
+              <MenuItem value={10}>Studierende</MenuItem>
+              <MenuItem value={20}>Lehrende</MenuItem>
+              <MenuItem value={30}>Andimistrative</MenuItem>
+              <MenuItem value={40}>Studiengang</MenuItem>
+            </Select>
+          }
+          {(loggedUser.role === 2) &&
+            <Select
+              labelId="simple-select-label"
+              id="simple-select"
+              value={filter}
+              onChange={handleSelectionChange}
+            >
+              <MenuItem value={10}>Studierende</MenuItem>
+              <MenuItem value={20}>Lehrende</MenuItem>
+              <MenuItem value={30}>Andimistrative</MenuItem>
+              <MenuItem value={40}>Studiengang</MenuItem>
+              <MenuItem value={50}>Fachbereich</MenuItem>
+              <MenuItem value={60}>Alle</MenuItem>
+            </Select>
+          }
+          {(loggedUser.role === 3) &&
+            <Select
+              labelId="simple-select-label"
+              id="simple-select"
+              value={filter}
+              onChange={handleSelectionChange}
+            >
+              <MenuItem value={10}>Studierende</MenuItem>
+              <MenuItem value={20}>Lehrende</MenuItem>
+              <MenuItem value={30}>Andimistrative</MenuItem>
+              <MenuItem value={50}>Fachbereich</MenuItem>
+            </Select>
+          }
+
         </FormControl>
       </div>
       <div>

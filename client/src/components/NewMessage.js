@@ -3,9 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
-import Env from './Env'
 
-import axios from 'axios';
 import AddReceiver from './AddReceiver'
 import sendMessage from './helper/SendMessage'
 
@@ -64,7 +62,7 @@ export default function EmailInputTextField({ loggedUser }) {
         <form className={classes.root} noValidate autoComplete="off">
             <form className={classes.reciverInput} noValidate autoComplete="off">
                 <div>
-                    <AddReceiver newMessageReceiver={newMessageReceiver} handleReceiverChange={handleReceiverChange} />
+                    <AddReceiver loggedUser={loggedUser} newMessageReceiver={newMessageReceiver} handleReceiverChange={handleReceiverChange} />
                 </div>
             </form>
             <form className={classes.root} noValidate autoComplete="off">

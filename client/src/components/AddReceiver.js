@@ -7,10 +7,11 @@ import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import TextField from '@material-ui/core/TextField';
 
-
+import axios from 'axios';
+import Env from './Env';
 
 import AddReceiverForm from './AddReceiverForm'
-import { getAllAdministratives, getAllLecturers, getAllStudents } from './helper/GetUsers';
+import { getUserById, getAllAdministratives, getAllLecturers, getAllStudents } from './helper/GetUsers';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -40,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const AddReceiver = ({ users, newMessageReceiver, handleReceiverChange }) => {
+export const AddReceiver = ({ loggedUser, newMessageReceiver, handleReceiverChange }) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [students, setStudents] = React.useState([])
@@ -49,16 +50,34 @@ export const AddReceiver = ({ users, newMessageReceiver, handleReceiverChange })
   const [selectedUsers, setSelectedUsers] = React.useState([]);
   const [receiverString, setReceiverString] = React.useState('')
   const [filter, setFilter] = React.useState('');
-
+  const [loggedInfo, setLoggedInfo] = React.useState([])
 
   function getUsers() {
+    // Studierende
     if (filter === 10) {
       return students
     }
+    // Lehrende
     if (filter === 20) {
       return lecturers
     }
+    // Andimistrative
     if (filter === 30) {
+      return admins
+    }
+    // Studiengang
+    if (filter === 40) {
+      const courseId = loggedInfo.data.course.id
+      const studentsInCourse = students.filter((student) => student.course.id === courseId)
+      console.log("TEEEEEEST: ", studentsInCourse)
+      return studentsInCourse
+    }
+    // Fachbereich
+    if (filter === 50) {
+      return lecturers
+    }
+    // Alle
+    if (filter === 60) {
       return admins
     }
     return []
@@ -91,6 +110,7 @@ export const AddReceiver = ({ users, newMessageReceiver, handleReceiverChange })
     setStudents(await getAllStudents())
     setLecturers(await getAllLecturers())
     setAdmins(await getAllAdministratives())
+    setLoggedInfo(await getUserById(loggedUser.uid))
     setOpen(true);
   };
 
@@ -154,7 +174,7 @@ export const AddReceiver = ({ users, newMessageReceiver, handleReceiverChange })
           <Fade in={open}>
             <div className={classes.paper}>
               <h2 id="receiver-message-modal-title">Empfänger Hinzufügen</h2>
-              <AddReceiverForm students={students} lecturers={lecturers} id="receiver-modal-description"
+              <AddReceiverForm loggedUser={loggedUser} students={students} lecturers={lecturers} id="receiver-modal-description"
                 sender={getSender()}
                 onClose={handleClose}
                 newMessageReceiver={newMessageReceiver}
