@@ -193,7 +193,10 @@ export default function PersistentDrawerLeft({ loggedUser }) {
             <ListItem component="a" href="https://sgse2021-ilias.westeurope.cloudapp.azure.com/users/" button key={'Raumbelegung'}>
               <ListItemText primary={'Raumbelegung'} />
             </ListItem>
-            <ListItem component="a" href="https://sgse2021-ilias.westeurope.cloudapp.azure.com/users/login/" button key={'Ausloggen'}>
+            <ListItem
+              component="a"
+              href="https://sgse2021-ilias.westeurope.cloudapp.azure.com/users/" button key={'Ausloggen'}
+              onClick={localStorage.removeItem("current-user")}>
               <ListItemText primary={'Ausloggen'} />
             </ListItem>
           </List>
