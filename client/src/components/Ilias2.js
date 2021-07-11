@@ -109,7 +109,7 @@ export default function PersistentDrawerLeft({ loggedUser }) {
 
   if (loggedUser === null) {
     return (
-      <Router basename="/messages">
+      <Router>
         <Redirect to="/users/" />
       </Router>
     )
@@ -172,7 +172,7 @@ export default function PersistentDrawerLeft({ loggedUser }) {
           </IconButton>
         </div>
         <Divider />
-        <Router basename="/messages">
+        <Router>
           <List>
             <ListItem component="a" href="https://sgse2021-ilias.westeurope.cloudapp.azure.com/users/" button key={'Startseite'}>
               <ListItemText primary={'Startseite'} />
