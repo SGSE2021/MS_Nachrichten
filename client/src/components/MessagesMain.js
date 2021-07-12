@@ -35,7 +35,7 @@ export default function SimpleTable({ loggedUser }) {
         }
     }
 
-    setInterval(getNewMessages, 5000)
+    // const refreshIntervalId = setInterval(getNewMessages, 5000)
 
     useEffect(() => {
         getMessages()
