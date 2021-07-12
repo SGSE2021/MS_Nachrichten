@@ -39,7 +39,7 @@ export default function SimpleTable({ loggedUser }) {
 
     useEffect(() => {
         getMessages()
-    }, [])
+    }, [setMessages])
 
     const classes = useStyles();
 
