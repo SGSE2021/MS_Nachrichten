@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function MessageActionButtonGroup({ message, getMessages }) {
+export default function MessageActionButtonGroup({ message, getMessages, loggedUser }) {
     const classes = useStyles();
 
     const handleDelete = async () => {
@@ -30,7 +30,7 @@ export default function MessageActionButtonGroup({ message, getMessages }) {
         <div className={classes.root}>
             <ButtonGroup orientation="vertical" aria-label="vertical contained primary button group" variant="text">
                 <ViewMessage message={message} />
-                <AnswerMessage message={message} />
+                <AnswerMessage message={message} loggedUser={loggedUser} />
                 <Button onClick={handleDelete}>Löschen</Button>
             </ButtonGroup>
         </div>

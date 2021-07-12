@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export const AnswerMessageForm = ({ sender, messageBody, message, onClose, onAnswer }) => {
+export const AnswerMessageForm = ({ sender, messageBody, message, onClose, onAnswer, loggedUser }) => {
   const classes = useStyles();
   const [answerMessageBody, setAnswerMessageBody] = useState(messageBody)
 
@@ -32,7 +32,7 @@ export const AnswerMessageForm = ({ sender, messageBody, message, onClose, onAns
 
   const handleSendAnswer = () =>{
     message.recipientIDs = [message.senderID]
-    message.senderID = ["TODO THIS USER"]
+    message.senderID = loggedUser.uid
     message.body = answerMessageBody
     sendMessage(message)
     onClose()

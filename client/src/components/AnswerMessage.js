@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AnswerMessage({message}) {
+export default function AnswerMessage({message, loggedUser}) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -40,12 +40,10 @@ export default function AnswerMessage({message}) {
   };
 
   const getMessage = () => {
-    //TODO maybe in utils
     return message.body
   }
 
   const getSender = () => {
-    //TODO maybe in utils
     return message.senderName
   }
 
@@ -74,7 +72,8 @@ export default function AnswerMessage({message}) {
               sender={getSender()}
               messageBody={makeBodyToAnswerBody(getMessage())}
               message={message}
-              onClose={handleClose} />
+              onClose={handleClose}
+              loggedUser={loggedUser}/>
           </div>
         </Fade>
       </Modal>

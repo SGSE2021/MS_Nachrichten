@@ -73,7 +73,7 @@ func (uc UserController) GetUsersLecturers(w http.ResponseWriter, r *http.Reques
 	defer resp.Body.Close()
 	bodyBytes, _ := ioutil.ReadAll(resp.Body)
 
-	// Convert response body to Todo struct
+	// Convert response body
 	var lecturers []models.Lecturer
 	json.Unmarshal(bodyBytes, &lecturers)
 
@@ -97,7 +97,7 @@ func (uc UserController) GetUsersLecturerById(w http.ResponseWriter, r *http.Req
 	defer resp.Body.Close()
 	bodyBytes, _ := ioutil.ReadAll(resp.Body)
 
-	// Convert response body to Todo struct
+	// Convert response body
 	var lecturer models.Lecturer
 	json.Unmarshal(bodyBytes, &lecturer)
 
@@ -117,7 +117,7 @@ func (uc UserController) GetUsersStudents(w http.ResponseWriter, r *http.Request
 	defer resp.Body.Close()
 	bodyBytes, _ := ioutil.ReadAll(resp.Body)
 
-	// Convert response body to Todo struct
+	// Convert response body
 	var lecturers []models.Student
 	json.Unmarshal(bodyBytes, &lecturers)
 
@@ -139,7 +139,7 @@ func (uc UserController) GetUsersStudentById(w http.ResponseWriter, r *http.Requ
 	defer resp.Body.Close()
 	bodyBytes, _ := ioutil.ReadAll(resp.Body)
 
-	// Convert response body to Todo struct
+	// Convert response body
 	var student models.Student
 	json.Unmarshal(bodyBytes, &student)
 
@@ -159,7 +159,7 @@ func (uc UserController) GetUsersadministratives(w http.ResponseWriter, r *http.
 	defer resp.Body.Close()
 	bodyBytes, _ := ioutil.ReadAll(resp.Body)
 
-	// Convert response body to Todo struct
+	// Convert response body
 	var lecturers []models.Lecturer
 	json.Unmarshal(bodyBytes, &lecturers)
 
@@ -181,7 +181,7 @@ func (uc UserController) GetUsersadministrativesById(w http.ResponseWriter, r *h
 	defer resp.Body.Close()
 	bodyBytes, _ := ioutil.ReadAll(resp.Body)
 
-	// Convert response body to Todo struct
+	// Convert response body
 	var student models.Lecturer
 	json.Unmarshal(bodyBytes, &student)
 
@@ -202,7 +202,7 @@ func (cm CourseController) GetCourses(w http.ResponseWriter, r *http.Request, p 
 	defer resp.Body.Close()
 	bodyBytes, _ := ioutil.ReadAll(resp.Body)
 
-	// Convert response body to Todo struct
+	// Convert response body
 	var courses []models.Class
 	json.Unmarshal(bodyBytes, &courses)
 

@@ -1,6 +1,6 @@
 /* eslint-disable no-multi-str */
 import React, { useEffect, useState } from 'react';
-import { makeStyles, responsiveFontSizes } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -23,8 +23,6 @@ const useStyles = makeStyles({
 export default function SimpleTable({ loggedUser }) {
     const [messages, setMessages] = useState([]);
 
-    // TODO FILTER ONLY IF RECIPIENT
-
     async function getMessages() {
         const tempMessages = await getAllMessagesUser(loggedUser.uid)
         setMessages(tempMessages)
@@ -37,7 +35,7 @@ export default function SimpleTable({ loggedUser }) {
         }
     }
 
-    setInterval(getNewMessages,5000)
+    setInterval(getNewMessages, 5000)
 
     useEffect(() => {
         getMessages()
@@ -58,9 +56,12 @@ export default function SimpleTable({ loggedUser }) {
                 <TableBody>
                     {messages.map((row) => (
                         <TableRow key={row.name}>
-                            <TableCell align="left"> <MessageActionButtonGroup
-                                message={row}
-                                getMessages={getMessages} /></TableCell>
+                            <TableCell align="left">
+                                <MessageActionButtonGroup
+                                    message={row}
+                                    getMessages={getMessages}
+                                    loggedUser={loggedUser} />
+                            </TableCell>
                             <TableCell align="left">{row.body}</TableCell>
                             <TableCell align="left">{row.senderName}</TableCell>
                         </TableRow>

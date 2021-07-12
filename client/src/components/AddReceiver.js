@@ -164,11 +164,6 @@ export const AddReceiver = ({ loggedUser, newMessageReceiver, handleReceiverChan
     setOpen(false);
   };
 
-  const getSender = () => {
-    //TODO maybe in utils
-    return "Test Horst"
-  }
-
   const getReceiverString = () => {
     let tempRecString = ''
     selectedUsers.map((row) => {
@@ -220,7 +215,6 @@ export const AddReceiver = ({ loggedUser, newMessageReceiver, handleReceiverChan
             <div className={classes.paper}>
               <h2 id="receiver-message-modal-title">Empfänger Hinzufügen</h2>
               <AddReceiverForm loggedUser={loggedUser} students={students} lecturers={lecturers} id="receiver-modal-description"
-                sender={getSender()}
                 onClose={handleClose}
                 newMessageReceiver={newMessageReceiver}
                 handleReceiverChange={handleReceiverChange}

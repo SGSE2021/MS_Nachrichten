@@ -36,12 +36,10 @@ export default function ViewMessage({message}) {
   };
 
   const getMessage = () => {
-    //TODO maybe in utils
     return message.body
   }
 
   const getSender = () => {
-    //TODO maybe in utils
     return message.senderName
   }
 
