@@ -16,7 +16,6 @@ export const getMyCoursesLecturer = async (id) => {
         return myCourses
 
     } catch (error) {
-        // TODO
         console.error(error);
         return []
     }
@@ -36,7 +35,6 @@ export const getMyCoursesStudent = async (id) => {
         });
         return myCourses
     } catch (error) {
-        // TODO
         console.error(error);
         return []
     }

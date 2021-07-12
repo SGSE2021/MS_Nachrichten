@@ -9,7 +9,6 @@ export const getAllMessagesUser = async (id) => {
         messages = await axios.get(Env.BACK_URL + '/message/' + id)
         messages = messages.data
     } catch (error) {
-        // TODO
         console.error(error);
         return messages
     }
@@ -18,12 +17,11 @@ export const getAllMessagesUser = async (id) => {
             const user = await getUserById(messages[i].senderID)
             messages[i].senderName = user.data.firstname + " " + user.data.lastname
         } catch (error) {
-            // TODO
+            messages[i].senderName = ""
             console.error(error);
         }
     }
     return (messages)
-
 }
 
 export default getAllMessagesUser

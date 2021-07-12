@@ -5,7 +5,7 @@ export const sendMessage = async (message) => {
     try {
         await axios.post(Env.BACK_URL + '/message', message);
     } catch (error) {
-        // TODO ERROR
+        console.error(error);
     } 
 }
 

@@ -14,7 +14,6 @@ export const getUserById = async (userId) => {
         }
         return user
     } catch (error) {
-        // TODO
         console.error(error);
         return []
     }
@@ -28,7 +27,6 @@ export const getAllStudents = async () => {
         return student.data
 
     } catch (error) {
-        // TODO
         console.error(error);
         return []
     }
@@ -40,7 +38,6 @@ export const getAllLecturers = async () => {
         return lecturers.data
 
     } catch (error) {
-        // TODO
         console.error(error);
         return []
     }
@@ -52,7 +49,6 @@ export const getAllAdministratives = async () => {
         return administratives.data
 
     } catch (error) {
-        // TODO
         console.error(error);
         return []
     }
