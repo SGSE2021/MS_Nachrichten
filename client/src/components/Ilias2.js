@@ -111,7 +111,7 @@ export default function PersistentDrawerLeft({ loggedUser }) {
   if (loggedUser === null) {
     return (
       <Router>
-        <Redirect to="/users/" />
+        <Redirect to="https://sgse2021-ilias.westeurope.cloudapp.azure.com/users/" />
       </Router>
     )
   }
