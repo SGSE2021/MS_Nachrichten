@@ -21,3 +21,23 @@ export const getMyCoursesLecturer = async (id) => {
         return []
     }
 }
+
+export const getMyCoursesStudent = async (id) => {
+    try {
+        const courses = await axios.get(Env.BACK_URL + '/courses')
+        const myCourses = []
+        courses.data.forEach(course => {
+            const studentsList = course.persons.split(',')
+            studentsList.forEach(studentId => {
+                if (studentId === id) {
+                    myCourses.push(course)
+                }
+            })
+        });
+        return myCourses
+    } catch (error) {
+        // TODO
+        console.error(error);
+        return []
+    }
+}

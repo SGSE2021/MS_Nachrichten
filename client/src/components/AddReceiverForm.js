@@ -54,9 +54,8 @@ export const AddReceiverMessageForm = ({ loggedUser,
   handleCheckboxChange,
   selectedUsers,
   isUserSelected,
-  courseFilter,
-  handleCourseSelectionChange,
-  teacherCourses }) => {
+  teacherCourses,
+  studentCourses }) => {
   const classes = useStyles();
 
 
@@ -72,10 +71,13 @@ export const AddReceiverMessageForm = ({ loggedUser,
               value={filter}
               onChange={handleSelectionChange}
             >
-              <MenuItem value={10}>Studierende</MenuItem>
-              <MenuItem value={20}>Lehrende</MenuItem>
-              <MenuItem value={30}>Andimistrative</MenuItem>
-              <MenuItem value={40}>Studiengang</MenuItem>
+              <MenuItem value={"Studierende"}>Studierende</MenuItem>
+              <MenuItem value={"Lehrende"}>Lehrende</MenuItem>
+              <MenuItem value={"Andimistrative"}>Andimistrative</MenuItem>
+              <MenuItem value={"Studiengang"}>Studiengang</MenuItem>
+              {studentCourses.map((course) => (
+                <MenuItem value={"CourseSelectionStudent," + String(course.id)}>Kurs: {course.name}</MenuItem>
+              ))}
             </Select>
           }
           {(loggedUser.role === 2) &&
@@ -104,7 +106,7 @@ export const AddReceiverMessageForm = ({ loggedUser,
                 <MenuItem value={"Andimistrative"}>Andimistrative</MenuItem>
                 <MenuItem value={"Fachbereich"}>Fachbereich</MenuItem>
                 {teacherCourses.map((course) => (
-                  <MenuItem value={"CourseSelection,"+ String(course.id)}>Kurs: {course.name}</MenuItem>
+                  <MenuItem value={"CourseSelectionLecturer," + String(course.id)}>Kurs: {course.name}</MenuItem>
                 ))}
               </Select>
             </FormControl>

@@ -6,7 +6,7 @@ import Fade from '@material-ui/core/Fade';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import TextField from '@material-ui/core/TextField';
-import { getMyCoursesLecturer } from './helper/GetMyCourses';
+import { getMyCoursesLecturer, getMyCoursesStudent } from './helper/GetMyCourses';
 
 import AddReceiverForm from './AddReceiverForm'
 import { getUserById, getAllAdministratives, getAllLecturers, getAllStudents } from './helper/GetUsers';
@@ -49,6 +49,7 @@ export const AddReceiver = ({ loggedUser, newMessageReceiver, handleReceiverChan
   const [filter, setFilter] = React.useState('');
   const [loggedInfo, setLoggedInfo] = React.useState([])
   const [teacherCourses, setTeacherCourses] = React.useState([])
+  const [studentCourses, setStudentCourses] = React.useState([])
   const [courseFilter, setCourseFilter] = React.useState()
 
   function getUsers() {
@@ -65,7 +66,7 @@ export const AddReceiver = ({ loggedUser, newMessageReceiver, handleReceiverChan
       return admins
     }
     // Studiengang
-    if (filter === 40) {
+    if (filter === "Studiengang") {
       const courseId = loggedInfo.data.course.id
       const studentsInCourse = students.filter((student) => student.course.id === courseId)
       return studentsInCourse
@@ -78,8 +79,9 @@ export const AddReceiver = ({ loggedUser, newMessageReceiver, handleReceiverChan
       const usersInDepartment = studentsInDepartment.concat(lecturersInDepartment)
       return usersInDepartment
     }
+
     // Course/Class selected
-    if (filter.includes("CourseSelection")) {
+    if (filter.includes("CourseSelectionLecturer")) {
       const selectedCourseId = filter.split(',')[1]
       const selectedCourse = teacherCourses.filter((course) => course.id === parseInt(selectedCourseId))[0]
       const studentIDs = selectedCourse.persons.split(',')
@@ -93,6 +95,25 @@ export const AddReceiver = ({ loggedUser, newMessageReceiver, handleReceiverChan
       });
       return studentsToDisplay
     }
+
+    // Courde/Class selected for student
+    if (filter.includes("CourseSelectionStudent")) {
+      const selectedCourseId = filter.split(',')[1]
+      const selectedCourse = studentCourses.filter((course) => course.id === parseInt(selectedCourseId))[0]
+      const studentIDs = selectedCourse.persons.split(',')
+      const usersToDisplay = []
+      studentIDs.forEach(studentId => {
+        students.forEach((student) => {
+          if (student.id === studentId) {
+            usersToDisplay.push(student)
+          }
+        })
+      });
+      const lecturerToDisplay = lecturers.filter((lecturers) => lecturers.id === selectedCourse.docents)
+      usersToDisplay.push(lecturerToDisplay)
+      return usersToDisplay
+    }
+
     // Alle
     if (filter === 60) {
       return students.concat(lecturers, admins)
@@ -129,12 +150,12 @@ export const AddReceiver = ({ loggedUser, newMessageReceiver, handleReceiverChan
   }
 
   const handleOpen = async () => {
-    console.log("ON OPEN")
     setStudents(await getAllStudents())
     setLecturers(await getAllLecturers())
     setAdmins(await getAllAdministratives())
     setLoggedInfo(await getUserById(loggedUser.uid))
     setTeacherCourses(await getMyCoursesLecturer(loggedUser.uid))
+    setStudentCourses(await getMyCoursesStudent(loggedUser.uid))
     setOpen(true);
   };
 
@@ -142,10 +163,6 @@ export const AddReceiver = ({ loggedUser, newMessageReceiver, handleReceiverChan
     setReceiverString(getReceiverString())
     setOpen(false);
   };
-
-  // const getReceiver = () => {
-  //   return receiver
-  // }
 
   const getSender = () => {
     //TODO maybe in utils
@@ -215,7 +232,8 @@ export const AddReceiver = ({ loggedUser, newMessageReceiver, handleReceiverChan
                 isUserSelected={isUserSelected}
                 courseFilter={courseFilter}
                 handleCourseSelectionChange={handleCourseSelectionChange}
-                teacherCourses={teacherCourses} />
+                teacherCourses={teacherCourses}
+                studentCourses={studentCourses} />
             </div>
           </Fade>
         </Modal>
