@@ -22,6 +22,7 @@ const useStyles = makeStyles({
 
 export default function SimpleTable({ loggedUser }) {
     const [messages, setMessages] = useState([]);
+    const [delay, setDelay] = useState(1000);
 
     async function getMessages() {
         const tempMessages = await getAllMessagesUser(loggedUser.uid)
@@ -34,12 +35,15 @@ export default function SimpleTable({ loggedUser }) {
             setMessages(tempMessages)
         }
     }
-
-    // const refreshIntervalId = setInterval(getNewMessages, 5000)
-
+    
     useEffect(() => {
-        getMessages()
-    }, [setMessages])
+        // getMessages()
+        const interval = setInterval(() => {
+            console.log('This will run every second!');
+            getNewMessages();
+          }, 5000);
+          return () => clearInterval(interval);
+    }, [])
 
     const classes = useStyles();
 
