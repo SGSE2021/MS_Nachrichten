@@ -100,16 +100,6 @@ export default function EmailInputTextField({ loggedUser }) {
                         Nachricht Senden
                     </Button>
                 </div>
-                <div>
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        className={classes.button}
-                        onClick={
-                            () => console.log("Recv:", newMessageReceiver)
-                        }>
-                    </Button>
-                </div>
             </form>
         </form>
 

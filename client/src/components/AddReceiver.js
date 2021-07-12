@@ -6,9 +6,7 @@ import Fade from '@material-ui/core/Fade';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import TextField from '@material-ui/core/TextField';
-
-import axios from 'axios';
-import Env from './Env';
+import { getMyCoursesLecturer } from './helper/GetMyCourses';
 
 import AddReceiverForm from './AddReceiverForm'
 import { getUserById, getAllAdministratives, getAllLecturers, getAllStudents } from './helper/GetUsers';
@@ -50,19 +48,20 @@ export const AddReceiver = ({ loggedUser, newMessageReceiver, handleReceiverChan
   const [receiverString, setReceiverString] = React.useState('')
   const [filter, setFilter] = React.useState('');
   const [loggedInfo, setLoggedInfo] = React.useState([])
-
+  const [teacherCourses, setTeacherCourses] = React.useState([])
+  const [courseFilter, setCourseFilter] = React.useState()
 
   function getUsers() {
     // Studierende
-    if (filter === 10) {
+    if (filter === "Studierende") {
       return students
     }
     // Lehrende
-    if (filter === 20) {
+    if (filter === "Lehrende") {
       return lecturers
     }
     // Andimistrative
-    if (filter === 30) {
+    if (filter === "Andimistrative") {
       return admins
     }
     // Studiengang
@@ -72,12 +71,27 @@ export const AddReceiver = ({ loggedUser, newMessageReceiver, handleReceiverChan
       return studentsInCourse
     }
     // Fachbereich
-    if (filter === 50) {
+    if (filter === "Fachbereich") {
       const departmentId = loggedInfo.data.departmentId
       const lecturersInDepartment = lecturers.filter((lecturers) => lecturers.departmentId === departmentId)
       const studentsInDepartment = students.filter((student) => student.course.departmentId === departmentId)
       const usersInDepartment = studentsInDepartment.concat(lecturersInDepartment)
       return usersInDepartment
+    }
+    // Course/Class selected
+    if (filter.includes("CourseSelection")) {
+      const selectedCourseId = filter.split(',')[1]
+      const selectedCourse = teacherCourses.filter((course) => course.id === parseInt(selectedCourseId))[0]
+      const studentIDs = selectedCourse.persons.split(',')
+      const studentsToDisplay = []
+      studentIDs.forEach(studentId => {
+        students.forEach((student) => {
+          if (student.id === studentId) {
+            studentsToDisplay.push(student)
+          }
+        })
+      });
+      return studentsToDisplay
     }
     // Alle
     if (filter === 60) {
@@ -89,6 +103,11 @@ export const AddReceiver = ({ loggedUser, newMessageReceiver, handleReceiverChan
   const handleSelectionChange = (event) => {
     setFilter(event.target.value);
   };
+
+  const handleCourseSelectionChange = (event) => {
+    console.log(event.target.value)
+    setCourseFilter(event.target.value);
+  }
 
   const handleCheckboxChange = (event, user) => {
     let tempSelectedUsers = selectedUsers
@@ -110,10 +129,12 @@ export const AddReceiver = ({ loggedUser, newMessageReceiver, handleReceiverChan
   }
 
   const handleOpen = async () => {
+    console.log("ON OPEN")
     setStudents(await getAllStudents())
     setLecturers(await getAllLecturers())
     setAdmins(await getAllAdministratives())
     setLoggedInfo(await getUserById(loggedUser.uid))
+    setTeacherCourses(await getMyCoursesLecturer(loggedUser.uid))
     setOpen(true);
   };
 
@@ -136,7 +157,6 @@ export const AddReceiver = ({ loggedUser, newMessageReceiver, handleReceiverChan
     selectedUsers.map((row) => {
       tempRecString += row.firstname + ' ' + row.lastname + '; '
     })
-    console.log("JOOOO", tempRecString)
     return tempRecString
   }
 
@@ -156,7 +176,7 @@ export const AddReceiver = ({ loggedUser, newMessageReceiver, handleReceiverChan
   return (
     <form className={classes.reciverInput} noValidate autoComplete="off">
       <div>
-        <ReceiverForm/>
+        <ReceiverForm />
         <Button
           variant="contained"
           color="primary"
@@ -192,7 +212,10 @@ export const AddReceiver = ({ loggedUser, newMessageReceiver, handleReceiverChan
                 getUsers={getUsers}
                 handleCheckboxChange={handleCheckboxChange}
                 selectedUsers={selectedUsers}
-                isUserSelected={isUserSelected} />
+                isUserSelected={isUserSelected}
+                courseFilter={courseFilter}
+                handleCourseSelectionChange={handleCourseSelectionChange}
+                teacherCourses={teacherCourses} />
             </div>
           </Fade>
         </Modal>

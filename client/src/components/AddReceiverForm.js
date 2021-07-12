@@ -1,23 +1,18 @@
 import React from 'react';
-import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
-import Icon from '@material-ui/core/Icon';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
-import CheckBoxIcon from '@material-ui/icons/CheckBox';
-import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 
 
 
@@ -49,14 +44,27 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export const AddReceiverMessageForm = ({ loggedUser, onClose, newMessageReceiver, handleReceiverChange, filter, handleSelectionChange, getUsers, handleCheckboxChange, selectedUsers, isUserSelected }) => {
+export const AddReceiverMessageForm = ({ loggedUser,
+  onClose,
+  newMessageReceiver,
+  handleReceiverChange,
+  filter,
+  handleSelectionChange,
+  getUsers,
+  handleCheckboxChange,
+  selectedUsers,
+  isUserSelected,
+  courseFilter,
+  handleCourseSelectionChange,
+  teacherCourses }) => {
   const classes = useStyles();
+
+
 
   return (
     <form className={classes.root} noValidate autoComplete="off" >
       <div>
         <FormControl className={classes.formControl}>
-          <InputLabel id="simple-select-label">Auswahl</InputLabel>
           {(loggedUser.role === 1) &&
             <Select
               labelId="simple-select-label"
@@ -84,17 +92,22 @@ export const AddReceiverMessageForm = ({ loggedUser, onClose, newMessageReceiver
             </Select>
           }
           {(loggedUser.role === 3) &&
-            <Select
-              labelId="simple-select-label"
-              id="simple-select"
-              value={filter}
-              onChange={handleSelectionChange}
-            >
-              <MenuItem value={10}>Studierende</MenuItem>
-              <MenuItem value={20}>Lehrende</MenuItem>
-              <MenuItem value={30}>Andimistrative</MenuItem>
-              <MenuItem value={50}>Fachbereich</MenuItem>
-            </Select>
+            <FormControl variant="outlined" className={classes.formControl}>
+              <Select
+                id="simple-select-user-type"
+                value={filter}
+                onChange={handleSelectionChange}
+              >
+                <MenuItem value={"Auswählen"}>Auswählen</MenuItem>
+                <MenuItem value={"Studierende"}>Studierende</MenuItem>
+                <MenuItem value={"Lehrende"}>Lehrende</MenuItem>
+                <MenuItem value={"Andimistrative"}>Andimistrative</MenuItem>
+                <MenuItem value={"Fachbereich"}>Fachbereich</MenuItem>
+                {teacherCourses.map((course) => (
+                  <MenuItem value={"CourseSelection,"+ String(course.id)}>Kurs: {course.name}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           }
 
         </FormControl>
