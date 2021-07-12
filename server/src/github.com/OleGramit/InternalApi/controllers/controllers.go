@@ -24,6 +24,13 @@ type (
 )
 
 type (
+	CourseController struct {
+		client  *http.Client
+		restApi string
+	}
+)
+
+type (
 	MessageController struct {
 		session *mgo.Session
 		dbName  string
@@ -37,6 +44,15 @@ func NewUserController(client *http.Client) *UserController {
 		userRestUrl = "http://localhost:8181/"
 	}
 	return &UserController{client, userRestUrl}
+}
+
+func NewCourseController(client *http.Client) *CourseController {
+	// if local
+	userRestUrl, ok := os.LookupEnv("COURSES_REST_URL")
+	if !ok {
+		userRestUrl = "http://localhost:8181/"
+	}
+	return &CourseController{client, userRestUrl}
 }
 
 func NewMessageController(session *mgo.Session, databaseName string) *MessageController {
@@ -171,6 +187,27 @@ func (uc UserController) GetUsersadministrativesById(w http.ResponseWriter, r *h
 
 	// Marshal provided interface into JSON structure
 	uj, _ := json.Marshal(student)
+
+	w.WriteHeader(200)
+	fmt.Fprintf(w, "%s", uj)
+}
+
+// Courses
+func (cm CourseController) GetCourses(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	resp, err := cm.client.Get(cm.restApi + "courses")
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	defer resp.Body.Close()
+	bodyBytes, _ := ioutil.ReadAll(resp.Body)
+
+	// Convert response body to Todo struct
+	var courses []models.Course
+	json.Unmarshal(bodyBytes, &courses)
+
+	// Marshal provided interface into JSON structure
+	uj, _ := json.Marshal(courses)
 
 	w.WriteHeader(200)
 	fmt.Fprintf(w, "%s", uj)

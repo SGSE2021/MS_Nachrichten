@@ -71,3 +71,19 @@ type (
 		Messages []Message `json:"messages" bson:"messages"`
 	}
 )
+
+type (
+	Class struct {
+		ClassID          int    `json:"id"`
+		ClassName        string `json:"name"`
+		ClassSubject     int    `json:"subject"`
+		ClassStart       string `json:"start"`
+		ClassEnd         string `json:"end"`
+		ClassRepetition  string `json:"repetition"`
+		ClassTimes       int    `json:"times"`
+		ClassPlace       int    `json:"place"`
+		ClassDescription string `json:"description"`
+		ClassDocents     string `json:"docents"`
+		ClassPersons     string `json:"persons"`
+	}
+)

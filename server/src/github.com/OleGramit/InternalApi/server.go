@@ -26,13 +26,23 @@ func getDBSession() *mgo.Session {
 	s, err := mgo.Dial(mongoDBUrl)
 	// Check if connection error, is mongo running?
 	if err != nil {
-		log.Println("DB ERROR CONNECTION NOT POSSIBLE", err)
 		panic(err)
 	}
 	return s
 }
 
 func getUserManagementSession() *http.Client {
+	client := &http.Client{
+		Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{
+				InsecureSkipVerify: true,
+			},
+		},
+	}
+	return client
+}
+
+func getCourseManagementSession() *http.Client {
 	client := &http.Client{
 		Transport: &http.Transport{
 			TLSClientConfig: &tls.Config{
@@ -63,8 +73,10 @@ func main() {
 	r := httprouter.New()
 	dbSession := getDBSession()
 	userManagementClient := getUserManagementSession()
+	courseManagementSession := getCourseManagementSession()
 
 	userContr := controllers.NewUserController(userManagementClient)
+	courseContr := controllers.NewCourseController(courseManagementSession)
 
 	databaseName, ok := os.LookupEnv("DATABASE_NAME")
 	// if local
@@ -86,6 +98,8 @@ func main() {
 	r.GET("/users/administratives", userContr.GetUsersadministratives)
 
 	r.GET("/users/administratives/:id", userContr.GetUsersadministrativesById)
+
+	r.GET("/courses", courseContr.GetCourses)
 
 	r.GET("/message/:id", messageContr.GetMessagesForUserId)
 
