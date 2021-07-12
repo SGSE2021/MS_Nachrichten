@@ -35,11 +35,10 @@ export default function SimpleTable({ loggedUser }) {
             setMessages(tempMessages)
         }
     }
-    
+
     useEffect(() => {
         // getMessages()
         const interval = setInterval(() => {
-            console.log('This will run every second!');
             getNewMessages();
           }, 5000);
           return () => clearInterval(interval);
