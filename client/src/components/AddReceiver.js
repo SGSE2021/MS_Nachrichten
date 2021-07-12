@@ -41,16 +41,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const AddReceiver = ({ loggedUser, newMessageReceiver, handleReceiverChange }) => {
+export const AddReceiver = ({ loggedUser, newMessageReceiver, handleReceiverChange, selectedUsers, setSelectedUsers }) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [students, setStudents] = React.useState([])
   const [lecturers, setLecturers] = React.useState([])
   const [admins, setAdmins] = React.useState([])
-  const [selectedUsers, setSelectedUsers] = React.useState([]);
   const [receiverString, setReceiverString] = React.useState('')
   const [filter, setFilter] = React.useState('');
   const [loggedInfo, setLoggedInfo] = React.useState([])
+
 
   function getUsers() {
     // Studierende
@@ -76,8 +76,6 @@ export const AddReceiver = ({ loggedUser, newMessageReceiver, handleReceiverChan
       const departmentId = loggedInfo.data.departmentId
       const lecturersInDepartment = lecturers.filter((lecturers) => lecturers.departmentId === departmentId)
       const studentsInDepartment = students.filter((student) => student.course.departmentId === departmentId)
-      console.log("TEST1",lecturersInDepartment)
-      console.log("TEST2",studentsInDepartment)
       const usersInDepartment = studentsInDepartment.concat(lecturersInDepartment)
       return usersInDepartment
     }
@@ -138,22 +136,27 @@ export const AddReceiver = ({ loggedUser, newMessageReceiver, handleReceiverChan
     selectedUsers.map((row) => {
       tempRecString += row.firstname + ' ' + row.lastname + '; '
     })
+    console.log("JOOOO", tempRecString)
     return tempRecString
   }
 
   useEffect(() => {
-  }, [setStudents, setLecturers, setAdmins])
+    setReceiverString(getReceiverString())
+  })
+
+  const ReceiverForm = () =>
+    <TextField
+      label="Empfänger"
+      id="outlined-size-small"
+      variant="outlined"
+      size="small"
+      value={receiverString}
+    />
 
   return (
     <form className={classes.reciverInput} noValidate autoComplete="off">
       <div>
-        <TextField
-          label="Empfänger"
-          id="outlined-size-small"
-          variant="outlined"
-          size="small"
-          value={receiverString}
-        />
+        <ReceiverForm/>
         <Button
           variant="contained"
           color="primary"

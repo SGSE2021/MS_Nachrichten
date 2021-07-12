@@ -19,7 +19,7 @@ const useStyles = makeStyles({
     },
 });
 
-export default function SimpleTable({loggedUser}) {
+export default function SimpleTable({ loggedUser }) {
     const [messages, setMessages] = useState([]);
 
     // TODO FILTER ONLY IF RECIPIENT
@@ -31,7 +31,7 @@ export default function SimpleTable({loggedUser}) {
 
     useEffect(() => {
         getMessages()
-    }, [setMessages])
+    })
 
 
     const classes = useStyles();
@@ -49,7 +49,7 @@ export default function SimpleTable({loggedUser}) {
                 <TableBody>
                     {messages.map((row) => (
                         <TableRow key={row.name}>
-                            <TableCell align="left"> <MessageActionButtonGroup message={row} /> </TableCell>
+                            <TableCell align="left"> <MessageActionButtonGroup message={row} getMessages={getMessages} /> </TableCell>
                             <TableCell align="left">{row.body}</TableCell>
                             <TableCell align="left">{row.senderName}</TableCell>
                         </TableRow>

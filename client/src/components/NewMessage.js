@@ -29,6 +29,9 @@ export default function EmailInputTextField({ loggedUser }) {
     const classes = useStyles();
     const [newMessageBody, setMessageBody] = useState()
     const [newMessageReceiver, setMessageReceiver] = useState([])
+    const [selectedUsers, setSelectedUsers] = React.useState([]);
+
+
 
     const handleMessageTextChange = (event) => {
         setMessageBody(event.target.value)
@@ -38,7 +41,11 @@ export default function EmailInputTextField({ loggedUser }) {
         setMessageReceiver(newReceiver)
     }
 
-    const handleSendMessage = () => {
+    const resetSelectedUsers = () => {
+        setSelectedUsers([])
+    }
+
+    const handleSendMessage = async () => {
         const messageReceiver = []
         newMessageReceiver.map((rec) => {
             messageReceiver.push(rec.id)
@@ -48,10 +55,11 @@ export default function EmailInputTextField({ loggedUser }) {
             recipientIDs: messageReceiver,
             body: newMessageBody
         }
-        sendMessage(newMessage)
+        await sendMessage(newMessage)
         setMessageBody('')
         setMessageReceiver([])
-    }   
+        resetSelectedUsers()
+    }
 
     useEffect(() => {
         // getAllUsers()
@@ -62,7 +70,11 @@ export default function EmailInputTextField({ loggedUser }) {
         <form className={classes.root} noValidate autoComplete="off">
             <form className={classes.reciverInput} noValidate autoComplete="off">
                 <div>
-                    <AddReceiver loggedUser={loggedUser} newMessageReceiver={newMessageReceiver} handleReceiverChange={handleReceiverChange} />
+                    <AddReceiver loggedUser={loggedUser}
+                        newMessageReceiver={newMessageReceiver}
+                        handleReceiverChange={handleReceiverChange}
+                        selectedUsers={selectedUsers}
+                        setSelectedUsers={setSelectedUsers} />
                 </div>
             </form>
             <form className={classes.root} noValidate autoComplete="off">
@@ -86,6 +98,16 @@ export default function EmailInputTextField({ loggedUser }) {
                         onClick={handleSendMessage}
                     >
                         Nachricht Senden
+                    </Button>
+                </div>
+                <div>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        className={classes.button}
+                        onClick={
+                            () => console.log("Recv:", newMessageReceiver)
+                        }>
                     </Button>
                 </div>
             </form>

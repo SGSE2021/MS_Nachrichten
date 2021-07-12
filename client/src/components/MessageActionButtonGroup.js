@@ -17,11 +17,12 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function MessageActionButtonGroup({ message }) {
+export default function MessageActionButtonGroup({ message, getMessages }) {
     const classes = useStyles();
 
     const handleDelete = () =>{
         deleteMessage(message.id)
+        getMessages()
     }
 
     return (
