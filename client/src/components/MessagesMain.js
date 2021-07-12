@@ -30,10 +30,18 @@ export default function SimpleTable({ loggedUser }) {
         setMessages(tempMessages)
     }
 
+    const getNewMessages = async () => {
+        const tempMessages = await getAllMessagesUser(loggedUser.uid)
+        if (tempMessages.length !== messages.length) {
+            setMessages(tempMessages)
+        }
+    }
+
+    setInterval(getNewMessages,5000)
+
     useEffect(() => {
         getMessages()
     }, [])
-
 
     const classes = useStyles();
 
