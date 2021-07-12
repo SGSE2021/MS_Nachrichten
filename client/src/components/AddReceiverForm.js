@@ -87,10 +87,10 @@ export const AddReceiverMessageForm = ({ loggedUser,
               value={filter}
               onChange={handleSelectionChange}
             >
-              <MenuItem value={10}>Studierende</MenuItem>
-              <MenuItem value={20}>Lehrende</MenuItem>
-              <MenuItem value={30}>Andimistrative</MenuItem>
-              <MenuItem value={60}>Alle</MenuItem>
+              <MenuItem value={"Studierende"}>Studierende</MenuItem>
+              <MenuItem value={"Lehrende"}>Lehrende</MenuItem>
+              <MenuItem value={"Andimistrative"}>Andimistrative</MenuItem>
+              <MenuItem value={"Alle"}>Alle</MenuItem>
             </Select>
           }
           {(loggedUser.role === 3) &&

@@ -1,27 +1,24 @@
-// export interface UserInfoDTO{
-//     uid:string,
-//     firstname:string
-//     lastname:string
-//     role:RoleDTO
-// }
-
-// export enum RoleDTO {
-//     STUDENT=1,
-//     ADMINSTRATIVE,
-//     LECTURER
-// }
-
 export const getLoggedUser = () => {
-
-    // TODO REMOVE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // 3-> lecturers 2->admin 1->student
+    // For development
     // localStorage.setItem("current-user", JSON.stringify({
-    //     "uid": "AWf5YNlnWmWLX4ooEbPh9qIRUpP2",
+    //     "uid": "LhlFb8g5C6hu8cTMntTdgyR4z7X2",
     //     "firstname": "Ole",
     //     "lastname": "Gramit",
     //     "role": 1,
     // }))
-    const currentUserString = localStorage.getItem("current-user");
-    return JSON.parse(currentUserString)
+    // localStorage.setItem("current-user", JSON.stringify({
+    //     "uid": "5LyrEGMQiURCDarRpEA99Lk0GYU2",
+    //     "firstname": "Ole",
+    //     "lastname": "Gramit",
+    //     "role": 2,
+    // }))
+    // localStorage.setItem("current-user", JSON.stringify({
+    //     "uid": "ONtaXe1UQbSiTmR6Bv1rHCVu7uY2",
+    //     "firstname": "Ole",
+    //     "lastname": "Gramit",
+    //     "role": 3,
+    // }))
+    return JSON.parse(localStorage.getItem("current-user"));
 }
-
 export default getLoggedUser
