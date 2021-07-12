@@ -203,7 +203,7 @@ func (cm CourseController) GetCourses(w http.ResponseWriter, r *http.Request, p 
 	bodyBytes, _ := ioutil.ReadAll(resp.Body)
 
 	// Convert response body to Todo struct
-	var courses []models.Course
+	var courses []models.Class
 	json.Unmarshal(bodyBytes, &courses)
 
 	// Marshal provided interface into JSON structure
