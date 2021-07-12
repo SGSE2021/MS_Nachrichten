@@ -13,6 +13,7 @@ import getAllMessagesUser from './helper/GetAllMessagesUser'
 
 
 
+
 const useStyles = makeStyles({
     table: {
         minWidth: 650,
@@ -31,7 +32,7 @@ export default function SimpleTable({ loggedUser }) {
 
     useEffect(() => {
         getMessages()
-    }, [setMessages])
+    }, [])
 
 
     const classes = useStyles();
@@ -49,7 +50,9 @@ export default function SimpleTable({ loggedUser }) {
                 <TableBody>
                     {messages.map((row) => (
                         <TableRow key={row.name}>
-                            <TableCell align="left"> <MessageActionButtonGroup message={row} getMessages={getMessages} /> </TableCell>
+                            <TableCell align="left"> <MessageActionButtonGroup
+                                message={row}
+                                getMessages={getMessages} /></TableCell>
                             <TableCell align="left">{row.body}</TableCell>
                             <TableCell align="left">{row.senderName}</TableCell>
                         </TableRow>

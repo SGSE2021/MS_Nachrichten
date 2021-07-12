@@ -6,6 +6,7 @@ import ViewMessage from './ViewMessage'
 import AnswerMessage from './AnswerMessage'
 import deleteMessage from './helper/DeleteMessage'
 
+
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
@@ -20,8 +21,8 @@ const useStyles = makeStyles((theme) => ({
 export default function MessageActionButtonGroup({ message, getMessages }) {
     const classes = useStyles();
 
-    const handleDelete = () =>{
-        deleteMessage(message.id)
+    const handleDelete = async () => {
+        await deleteMessage(message.id)
         getMessages()
     }
 
