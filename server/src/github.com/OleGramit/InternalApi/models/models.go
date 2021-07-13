@@ -2,10 +2,6 @@ package models
 
 import "gopkg.in/mgo.v2/bson"
 
-// Users []User
-// Messages []Message
-// Message
-
 type (
 	Student struct {
 		UserID              string `json:"id"`
