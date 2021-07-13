@@ -112,6 +112,21 @@ export default function PersistentDrawerLeft({ loggedUser }) {
     }
   }
 
+  const renderStudentCourseItems = (role) => {
+    if (role === 2) {
+      return <div>
+        <ListItem component="a" href="https://sgse2021-ilias.westeurope.cloudapp.azure.com/courses/courses" button key={'Kurse'}>
+          <ListItemText primary={'Kurse'} />
+        </ListItem>
+      </div>
+    }
+    return <div>
+      <ListItem component="a" href="https://sgse2021-ilias.westeurope.cloudapp.azure.com/resources/" button key={'Kurse'}>
+        <ListItemText primary={'Kurse'} />
+      </ListItem>
+    </div>
+  }
+
   if (loggedUser === null) {
     return (
       <Router>
@@ -168,7 +183,7 @@ export default function PersistentDrawerLeft({ loggedUser }) {
         }}
       >
         <header>
-          <SvgIcon component={SchoolIcon} className={classes.largeIcon}/>
+          <SvgIcon component={SchoolIcon} className={classes.largeIcon} />
           <h3>Ilias2.0</h3>
         </header>
         <div className={classes.drawerHeader}>
@@ -185,9 +200,9 @@ export default function PersistentDrawerLeft({ loggedUser }) {
             <ListItem component="a" href="https://sgse2021-ilias.westeurope.cloudapp.azure.com/messages/" button key={'Nachrichten'}>
               <ListItemText primary={'Nachrichten'} />
             </ListItem>
-            <ListItem component="a" href="https://sgse2021-ilias.westeurope.cloudapp.azure.com/courses/" button key={'Kurse'}>
-              <ListItemText primary={'Kurse'} />
-            </ListItem>
+            {
+              renderStudentCourseItems(loggedUser.role)
+            }
             <ListItem component="a" href="https://sgse2021-ilias.westeurope.cloudapp.azure.com/exams/" button key={'Prüfungen'}>
               <ListItemText primary={'Prüfungen'} />
             </ListItem>
