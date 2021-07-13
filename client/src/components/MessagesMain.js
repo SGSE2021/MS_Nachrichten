@@ -25,13 +25,13 @@ export default function SimpleTable({ loggedUser }) {
 
     async function getMessages() {
         const tempMessages = await getAllMessagesUser(loggedUser.uid)
-        setMessages(tempMessages)
+        setMessages(tempMessages.reverse())
     }
 
     const getNewMessages = async () => {
         const tempMessages = await getAllMessagesUser(loggedUser.uid)
         if (tempMessages.length !== messages.length) {
-            setMessages(tempMessages)
+            setMessages(tempMessages.reverse())
         }
     }
 
