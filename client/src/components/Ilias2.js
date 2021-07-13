@@ -101,6 +101,9 @@ export default function PersistentDrawerLeft({ loggedUser }) {
   const renderAdminUserItems = (role) => {
     if (role === 2) {
       return <div>
+        <ListItem component="a" href="https://sgse2021-ilias.westeurope.cloudapp.azure.com/courses/appointments/" button key={'Termine'}>
+          <ListItemText primary={'Termine'} />
+        </ListItem>
         <ListItem component="a" href="https://sgse2021-ilias.westeurope.cloudapp.azure.com/users/students" button key={'Studierende'}>
           <ListItemText primary={'Studierende'} />
         </ListItem>
