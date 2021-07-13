@@ -154,7 +154,7 @@ export default function PersistentDrawerLeft({ loggedUser }) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap position="left">
-            Ilias2.0 Nachrichten
+            Nachrichten
           </Typography>
           <div>
             <IconButton
