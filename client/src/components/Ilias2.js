@@ -21,6 +21,7 @@ import { BrowserRouter as Router, Redirect } from 'react-router-dom'
 
 import MessagesSendShowTabs from './MessagesSendShowTabs'
 import getUserById from './helper/GetUsers';
+import SvgIcon from '@material-ui/icons/Menu';
 
 
 const drawerWidth = 240;
@@ -79,6 +80,9 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
     marginLeft: 0,
+  },
+  largeIcon: {
+    fontSize: "10em"
   },
 }));
 
@@ -164,7 +168,7 @@ export default function PersistentDrawerLeft({ loggedUser }) {
         }}
       >
         <header>
-          <img src={SchoolIcon} alt="Ilias2.0 Logo" />
+          <SvgIcon component={SchoolIcon} className={classes.largeIcon}/>
           <h3>Ilias2.0</h3>
         </header>
         <div className={classes.drawerHeader}>
